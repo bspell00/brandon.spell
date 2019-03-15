@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brandon Spell</title>
+  <link rel="stylesheet" href="css/custom.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,900" rel="stylesheet">
+</head>
+<body>
+
+  <div id="nav">
+    <a class="active" href="#work">my work</a>
+    <a href="about.html">about</a> 
+    <a>resumé</a>
+    <a href="contact.html">contact me</a>
+  </div>
+
+  <header class="about-header">
+    <div class="container">
+      <h1>My Name Is Brandon. I'm a graphic and web designer who dabbles in just about everything.</h1>
+    </div>
+  </header>
+
+  <div id="work">
+   <div class="container">
+    <div class="project span-3">
+      <!-- <video autoplay loop>
+       <source src="img/fc.mp4" type="video/mp4">
+       </video> -->
+       <img src="img/fc.gif">
+       <a href="http://www.freechapel.org">
+         <div class="overlay">
+          <div class="text">
+           <p>Free Chapel</p>
+           <p>Year: 2019</p>
+           <p>UX/UI — Design and Development</p>
+         </div>
+       </div>
+     </a>
+   </div>
+   <div class="project">
+     <img class="cover" src="img/chapel.jpg">
+     <a href="http://www.thechapelonmcever.com">
+       <div class="overlay">
+        <div class="text">
+         <p>The Chapel on McEver</p>
+         <p>Year: 2019</p>
+         <p>Design and Development</p>
+       </div>
+     </div>
+   </a>
+ </div>
+ <div class="project">
+   <img class="cover" src="img/llynbh.jpg">
+   <div class="overlay">
+    <div class="text">
+     <p>Love Like You've Never Been Hurt</p>
+     <p>Year: 2018</p>
+     <p>Design and Development</p>
+   </div>
+ </div>
+</div>
+ <div class="project span-3">
+ <!-- <video autoplay loop>
+   <source src="img/forward19.mp4" type="video/mp4">
+   </video> -->
+   <img src="img/forward19.gif">
+   <div class="overlay">
+    <div class="text">
+     <p>Forward 2019</p>
+     <p>Year: 2019</p>
+     <p>Design and Development</p>
+   </div>
+ </div>
+</div>
+<div class="project span-3">
+ <video autoplay loop>
+   <source src="img/divine18.mp4" type="video/mp4">
+   </video>
+   <div class="overlay">
+    <div class="text">
+     <p>DIVINE Conference</p>
+     <p>Year: 2018</p>
+     <p>Design and Development</p>
+   </div>
+ </div>
+</div>
+ <div class="project">
+   <img class="cover" src="img/balram.jpg">
+   <div class="overlay">
+    <div class="text">
+     <p>Devin Balram Photography</p>
+     <p>Year: 2018</p>
+     <p>Logo Design</p>
+   </div>
+ </div>
+</div>
+<div class="project">
+   <img class="cover" src="img/wilson.jpg">
+   <div class="overlay">
+    <div class="text">
+     <p>Wilson Nurseries</p>
+     <p>Year: 2019</p>
+     <p>Logo Design</p>
+   </div>
+ </div>
+</div>
+<div class="project span-3">
+ <video autoplay loop>
+   <source src="img/fcmusic_2.mp4" type="video/mp4">
+   </video>
+   <div class="overlay">
+    <div class="text">
+     <p>Free Chapel Music Album Release</p>
+     <p>Year: 2018</p>
+     <p>Design and Development</p>
+   </div>
+ </div>
+</div>
+
+</div>
+</div>
+
+<footer>
+  
+
+</footer>
+
+
+
+<!-- <div class="container test-grid">
+  <div class="outer">
+    <div class="inner">
+        <img class="cover" src="img/llynbh.jpg">
+    </div>
+  </div>
+  <div class="outer">
+    <div class="inner">
+         <video autoplay loop>
+   <source src="img/fcmusic.mp4" type="video/mp4">
+   </video>
+    </div>
+  </div>
+</div> -->
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+<script>
+$('a[href*="#"]').on('click', function (e) {
+  e.preventDefault();
+
+  $('html, body').animate({
+    scrollTop: $($(this).attr('href')).offset().top
+  }, 500, 'easeOutCubic');
+});
+</script>
+
+
+</body>
+</html>
