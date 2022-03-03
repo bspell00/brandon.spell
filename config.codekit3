@@ -17,6 +17,14 @@
       "oAP" : "\/about.html",
       "oF" : 0
     },
+    "\/CNAME" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/CNAME",
+      "oF" : 0
+    },
     "\/contact.html" : {
       "cB" : 0,
       "ft" : 8192,
@@ -202,6 +210,14 @@
       "ou" : "lpckwebp-none",
       "q" : 100,
       "rq" : 75
+    },
+    "\/img\/resume22.pdf" : {
+      "cB" : 0,
+      "ft" : 8192,
+      "hM" : 0,
+      "oA" : 0,
+      "oAP" : "\/img\/resume22.pdf",
+      "oF" : 0
     },
     "\/img\/wilson.jpg" : {
       "ft" : 16384,
