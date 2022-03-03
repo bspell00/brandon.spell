@@ -1,6 +1,7 @@
 
 //////////////////////////////////////Variables & Mixins
 $font-stack: 'Montserrat', sans-serif;
+$font-alternative: 'Space Mono', monospace;
 $main-color: #efd2d5;
 $black: black;
 $white: white;
@@ -76,6 +77,10 @@ a {
 }
 
 p {
+	@include phone-only {
+		font-size: .75rem;
+	}
+	font-size: .75rem;
 	line-height: 2;
 }
 
@@ -87,7 +92,7 @@ img, video {
 	width: 100%;
 	height: 100%;
 	transition: .3s ease-in-out;
-	object-fit: contain;
+	object-fit: cover;
 }
 
 video {
@@ -95,19 +100,13 @@ video {
 	object-position: top;
 }
 
-
 .container {
-	max-width: 75rem;
-	margin: auto;
-	padding: 1.5625rem;
-}
-
-
-.small-container {
 	max-width: 65rem;
 	margin: auto;
 	padding: 1.5625rem;
 }
+
+
 
 //////////////////////////////////////Nav
 
@@ -120,7 +119,7 @@ video {
 	transform-origin: left center;
 	@include tablet-up {
 		position: fixed;
-		bottom: 250px;
+		bottom: 100px;
 		left: 3%;
 	}
 	@include phone-only  {
@@ -136,8 +135,8 @@ video {
 	a {
 		position: relative;
 		margin-right: 20px;
-		font-weight: 700;
 		font-size: .75em;
+		font-family: $font-alternative;
 		@include tablet-up {
 			&:before {
 				content: '';
@@ -206,82 +205,94 @@ header {
 		height: 100%;
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
+		grid-auto-rows: 1fr;
 		grid-row-gap: 75px;
 		@include tablet-up {
-			grid-gap: 50px;
-		}
-	}
-	.project {
-		grid-column: 1 / -1;
-		width: 100%;
-		@include tablet-up {
-			height: 400px;
-			grid-column: span 2;
-		}
-		overflow: hidden;
-		position: relative;
-		@include tablet-up {
-			&:hover {
-				.overlay {
-					opacity: .95;
-				}
-				img, video {
-					transform: scale(1.2);
+					// grid-auto-rows: 400px;
+
+					grid-gap: 50px;
 				}
 			}
-		}
-		img, video {
-			@include phone-only {
+			.project {
+				grid-column: 1 / -1;
 				width: 100%;
-				padding-top: (300 / 300) * 100%;
+				position: relative;
+				img {
+					height: 300px;
+					@include tablet-up {
+						height: 350px;
+					}
+				}
+				@include tablet-up {
+					overflow: hidden;
+					height: 100%;
+					grid-column: span 2;
+					transition-duration: 0.5s;
+					&:hover {
+						transform: scale(1.1);
+						transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+						.overlay {
+							opacity: .95;
+						}
+						img, video {
+							transform: scale(1.2);
+						}
+					}
+				}
+			}
+			.span-3 {
+				grid-column: 1 / -1;
+				@include tablet-up {
+					grid-column: span 3;
+				}
 			}
 		}
-	}
-	.span-3 {
-		grid-column: 1 / -1;
-		@include tablet-up {
-			grid-column: span 3;
+
+
+		.overlay {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			z-index: 10000;
+			transition: .5s ease;
+			overflow: hidden;
+			text-align: center;
+			@include phone-only {
+				position: relative;
+				opacity: 1;
+				height: auto;
+				width: 100%;
+				left: 0;
+				bottom: 0;
+				text-align: left;
+			}
+			@include tablet-up {
+				background-color: $black;
+
+				justify-content: center;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				width: 100%;
+				opacity: 0;
+			}
+			.text {
+				font-weight: 600;
+				padding: 0 2%;
+				@include tablet-up {
+					color: $white;
+					padding: 0 5%;
+				}
+				p {
+					line-height: 1.5;
+					&:nth-of-type(4) {
+						margin-top: 5%;
+					}
+				}
+			}
 		}
-	}
-}
-
-
-.overlay {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	z-index: 10000;
-	transition: .5s ease;
-	overflow: hidden;
-	text-align: center;
-	@include phone-only {
-		position: relative;
-		opacity: 1;
-		height: auto;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		text-align: left;
-	}
-	@include tablet-up {
-			background-color: $black;
-
-		justify-content: center;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		height: 100%;
-		width: 100%;
-		opacity: 0;
-	}
-	.text {
-		font-weight: 600;
-		@include tablet-up {
-			color: $white;
-		}
-	}
-}
 
 //////////////////////////////////////About Page changes
 
@@ -290,15 +301,15 @@ header {
 		.container {
 			display: grid;
 			grid-template-columns: 1fr 2fr;
+			grid-row-gap: 20px;
 			@include tablet-up {
 				align-items: center;
 				grid-gap: 100px;
-				grid-auto-rows: 1fr 1fr;
+				// grid-auto-rows: 1fr 1fr;
 			}
 			position: relative;
 			div {
 				order: 1;
-				max-height: 300px;
 				position: relative;
 				z-index: 0;
 				perspective: 1000px;
@@ -389,9 +400,13 @@ header {
 						bottom: 0;
 						left: 0;
 						background-color: $yellow;
-						visibility: hidden;
 						transform: scaleX(0);
+						visibility: hidden;
 						transition: all 0.3s ease-in-out 0s;
+						@include phone-only {
+							transform: scaleX(1.1);
+							visibility: visible;
+						}
 					}
 					&:hover:before {
 						visibility: visible;
@@ -405,38 +420,23 @@ header {
 
 
 
-.test-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-gap: 100px;
-	max-width: 55rem;
-}
-
-
-.outer {
-	grid-column: span 2;
-	@include tablet-up {
-		grid-column: span 1;
+//////////////////////////////////////Footer
+footer {
+	.container {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+		p {
+			font-size: .4rem;
+			font-weight: 600;
+			&:last-of-type {
+				text-align: right;
+			}
+		}
 	}
-	position: relative;
-	&:before {
-		display: block;
-		content: "";
-		width: 100%;
-		padding-top: (300 / 300) * 100%;
-	}
-	> .inner {
-		background-color: $black;
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
+	@include phone-only {
+		margin-top: 20%;
 	}
 }
-
-
-
 
 
 
