@@ -443,4 +443,100 @@ footer .container p:last-of-type {
   }
 }
 
+.reveal {
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hl {
+  position: relative;
+  cursor: default;
+  transition: color 0.3s ease-out, text-shadow 0.3s ease-out;
+}
+.hl::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.06em;
+  width: 100%;
+  height: 0.07em;
+  background: #FFF900;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease-out;
+}
+.hl:hover {
+  text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black;
+  color: #efd2d5;
+}
+.hl:hover::after {
+  transform: scaleX(1);
+}
+
+.cursor {
+  display: none;
+}
+
+.has-cursor {
+  cursor: none;
+}
+.has-cursor a,
+.has-cursor .project {
+  cursor: none;
+}
+.has-cursor .cursor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+.has-cursor .cursor-label {
+  font-family: "Space Mono", monospace;
+  font-size: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transition: font-size 0.25s ease, opacity 0.25s ease;
+}
+.has-cursor .cursor.is-hovering {
+  width: 88px;
+  height: 88px;
+}
+.has-cursor .cursor.is-hovering .cursor-label {
+  font-size: 0.5rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cursor {
+    transition: none;
+  }
+}
+
 /*# sourceMappingURL=custom.css.map */

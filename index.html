@@ -8,8 +8,11 @@
   <link rel="stylesheet" href="css/custom.css">
   <link rel="icon" href="img/favicon.ico" type="image/ico">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Space+Mono" rel="stylesheet">
+  <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 </head>
 <body>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor-label">View&nbsp;&rarr;</span></div>
 
   <div id="nav">
     <a href="#work">my work</a>
@@ -20,13 +23,13 @@
 
   <header class="about-header">
     <div class="container">
-      <h1>My Name Is Brandon. I'm a graphic and web designer who dabbles in just about everything.</h1>
+      <h1 class="reveal">My Name Is Brandon. I'm a <span class="hl">graphic</span> and <span class="hl">web designer</span> who dabbles in just about <span class="hl">everything</span>.</h1>
     </div>
   </header>
 
   <div id="work">
    <div class="container">
-    <div class="project span-3">
+    <div class="project span-3 reveal">
       <a href="http://www.freechapel.org">
         <img src="img/fc.gif">
         <div class="overlay">
@@ -39,7 +42,7 @@
        </div>
      </a>
    </div>
-   <div class="project">
+   <div class="project reveal">
     <a href="http://www.thechapelonmcever.com">
       <img class="cover" src="img/chapel.jpg">
       <div class="overlay">
@@ -52,7 +55,7 @@
     </div>
   </a>
 </div>
-<div class="project">
+<div class="project reveal">
   <img class="cover" src="img/llynbh.jpg">
   <div class="overlay">
     <div class="text">
@@ -63,7 +66,7 @@
    </div>
  </div>
 </div>
-<div class="project span-3">
+<div class="project span-3 reveal">
   <a href="http://www.forwardconference.org">
     <img src="img/forward19.gif">
     <div class="overlay">
@@ -76,7 +79,7 @@
   </div>
 </a>
 </div>
-<div class="project span-3">
+<div class="project span-3 reveal">
   <img src="img/divine18.gif">
   <div class="overlay">
    <div class="text">
@@ -87,7 +90,7 @@
   </div>
 </div>
 </div>
-<div class="project">
+<div class="project reveal">
  <img class="cover" src="img/balram.jpg">
  <div class="overlay">
   <div class="text">
@@ -98,7 +101,7 @@
  </div>
 </div>
 </div>
-<div class="project">
+<div class="project reveal">
  <img class="cover" src="img/wilson.jpg">
  <div class="overlay">
   <div class="text">
@@ -109,7 +112,7 @@
  </div>
 </div>
 </div>
-<div class="project span-3">
+<div class="project span-3 reveal">
  <a href="http://www.freechapelmusic.com">
   <img class="cover" src="img/fcmusic.gif">
   <div class="overlay">
@@ -135,6 +138,7 @@
 
 
 
+<script src="js/main.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"

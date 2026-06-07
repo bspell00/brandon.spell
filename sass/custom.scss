@@ -515,3 +515,117 @@ footer {
 
 
 
+//////////////////////////////////////Motion & Interactions
+
+// Scroll-reveal — elements are only hidden when JS is active (`.js`),
+// so content stays visible if the script ever fails to load.
+.reveal {
+	transition: opacity .7s ease-out, transform .7s ease-out;
+}
+
+.js .reveal {
+	opacity: 0;
+	transform: translateY(24px);
+}
+
+.reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+// Hero headline — hoverable keywords reuse the (previously unused)
+// text-outline mixin plus the yellow underline sweep from #contact.
+.hl {
+	position: relative;
+	cursor: default;
+	transition: color .3s ease-out, text-shadow .3s ease-out;
+
+	&::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: .06em;
+		width: 100%;
+		height: .07em;
+		background: $yellow;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform .3s ease-out;
+	}
+
+	&:hover {
+		@include text-outline;
+		color: $main-color;
+
+		&::after {
+			transform: scaleX(1);
+		}
+	}
+}
+
+// Custom cursor follower — pointer devices only, switched on by JS.
+.cursor {
+	display: none;
+}
+
+.has-cursor {
+	cursor: none;
+
+	a,
+	.project {
+		cursor: none;
+	}
+
+	.cursor {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: $black;
+		color: $white;
+		pointer-events: none;
+		z-index: 99999;
+		will-change: transform;
+		transition: width .3s ease, height .3s ease, background-color .3s ease;
+	}
+
+	.cursor-label {
+		font-family: $font-alternative;
+		font-size: 0;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		white-space: nowrap;
+		opacity: 0;
+		transition: font-size .25s ease, opacity .25s ease;
+	}
+
+	.cursor.is-hovering {
+		width: 88px;
+		height: 88px;
+
+		.cursor-label {
+			font-size: .5rem;
+			opacity: 1;
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.js .reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.cursor {
+		transition: none;
+	}
+}
+
+
+
