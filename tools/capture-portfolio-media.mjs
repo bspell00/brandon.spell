@@ -8,7 +8,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const PROJECTS = [
-  { key: 'freechapel', url: 'https://freechapel.org', video: true },
+  // stopBefore: heading text of a section the scroll capture should never reach
+  // (freechapel.org's lazy-loaded social feed renders half-assembled mid-scroll)
+  { key: 'freechapel', url: 'https://freechapel.org', video: true, stopBefore: 'Follow Us on Social Media' },
   { key: 'shiloh', url: 'https://www.shilohranchga.com', video: false },
   { key: 'forward26', url: 'https://forwardconference.org', video: false },
   { key: 'ark', url: 'https://www.thearksalina.com', video: true },
@@ -43,14 +45,22 @@ async function scrollVideo(browser, p) {
   // poster = top of page
   await page.screenshot({ path: `img/${p.key}-poster.jpg`, type: 'jpeg', quality: 80 });
   // slow scroll: ~8s down up to 3 viewports
-  await page.evaluate(async () => {
-    const total = Math.min(document.body.scrollHeight - innerHeight, innerHeight * 3);
+  await page.evaluate(async (stopBefore) => {
+    let total = Math.min(document.body.scrollHeight - innerHeight, innerHeight * 3);
+    if (stopBefore) {
+      const el = [...document.querySelectorAll('h1,h2,h3,h4,h5')]
+        .find(h => h.textContent.includes(stopBefore));
+      if (el) {
+        const sectionTop = el.getBoundingClientRect().top + scrollY;
+        total = Math.min(total, Math.max(0, sectionTop - innerHeight));
+      }
+    }
     const steps = 240;
     for (let i = 1; i <= steps; i++) {
       scrollTo(0, (total * i) / steps);
       await new Promise(r => setTimeout(r, 33));
     }
-  });
+  }, p.stopBefore || null);
   await page.waitForTimeout(1000);
   await page.close();
   await ctx.close(); // flushes the webm
