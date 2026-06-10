@@ -26,7 +26,55 @@
     });
   }
 
-  // 2. Custom cursor follower ---------------------------------------------
+  // 2. Typewriter intro ----------------------------------------------------
+  // Type the hero headline in on load. Each character is wrapped in a .char
+  // span (recursing into .hl keyword spans so their hover effect survives),
+  // then revealed one at a time with a travelling caret.
+  var typeEl = document.querySelector('.typewriter');
+
+  if (typeEl) {
+    var chars = [];
+    (function wrap(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) { // text node -> one span per character
+          var frag = document.createDocumentFragment();
+          child.nodeValue.split('').forEach(function (ch) {
+            var span = document.createElement('span');
+            span.className = 'char';
+            span.textContent = ch;
+            frag.appendChild(span);
+            chars.push(span);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) { // element (.hl) -> recurse
+          wrap(child);
+        }
+      });
+    })(typeEl);
+
+    typeEl.style.opacity = '1'; // reveal container; chars are still hidden
+
+    if (reduceMotion.matches) {
+      chars.forEach(function (c) { c.classList.add('is-shown'); });
+    } else {
+      var caret = document.createElement('span');
+      caret.className = 'tw-caret';
+      caret.setAttribute('aria-hidden', 'true');
+      typeEl.appendChild(caret);
+
+      var i = 0;
+      (function type() {
+        if (i >= chars.length) { return; } // leave caret blinking at the end
+        var c = chars[i];
+        c.classList.add('is-shown');
+        c.parentNode.insertBefore(caret, c.nextSibling); // caret follows
+        i++;
+        setTimeout(type, c.textContent === ' ' ? 24 : 42);
+      })();
+    }
+  }
+
+  // 3. Custom cursor follower ---------------------------------------------
   // A small dot that trails the pointer and swells into a "View" pill over
   // project cards. Pointer devices only — never shown on touch.
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -39,7 +87,7 @@
     var targetY = window.innerHeight / 2;
     var posX = targetX;
     var posY = targetY;
-    var ease = reduceMotion.matches ? 1 : 0.18; // 1 = snap, no trailing
+    var ease = reduceMotion.matches ? 1 : 0.28; // 1 = snap, no trailing
 
     document.addEventListener('mousemove', function (e) {
       targetX = e.clientX;
