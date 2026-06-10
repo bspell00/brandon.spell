@@ -151,11 +151,11 @@ header h2 {
   width: 100%;
   position: relative;
 }
-#work .project img {
+#work .project img, #work .project video {
   height: 300px;
 }
 @media (min-width: 40em) {
-  #work .project img {
+  #work .project img, #work .project video {
     height: 350px;
   }
 }
@@ -232,8 +232,42 @@ header h2 {
 .overlay .text p {
   line-height: 1.5;
 }
-.overlay .text p:nth-of-type(4) {
-  margin-top: 5%;
+.overlay .text .title {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.overlay .text .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 40em) {
+  .overlay .text .chips {
+    justify-content: center;
+  }
+}
+.overlay .text .chip {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.overlay .text .desc {
+  margin-bottom: 1rem;
+}
+.overlay .text .visit {
+  display: inline-block;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  padding: 8px 14px;
+  background-color: #efd2d5;
+  color: black;
+  border-radius: 999px;
 }
 
 #about header .container {
@@ -460,7 +494,7 @@ footer .container p:last-of-type {
 .hl {
   position: relative;
   cursor: default;
-  transition: color 0.3s ease-out, text-shadow 0.3s ease-out;
+  transition: color 0.3s ease-out;
 }
 .hl::after {
   content: "";
@@ -475,13 +509,40 @@ footer .container p:last-of-type {
   transition: transform 0.3s ease-out;
 }
 .hl:hover {
-  text-shadow: -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black, 3px 3px 0 black;
   color: #efd2d5;
+  -webkit-text-stroke: 2px black;
 }
 .hl:hover::after {
   transform: scaleX(1);
 }
 
+.js .typewriter {
+  opacity: 0;
+}
+
+.typewriter .char {
+  opacity: 0;
+}
+
+.js .typewriter .char.is-shown {
+  opacity: 1;
+}
+
+.tw-caret {
+  display: inline-block;
+  width: 0.055em;
+  height: 0.82em;
+  margin-left: 0.04em;
+  background: black;
+  vertical-align: baseline;
+  animation: tw-blink 1s steps(1) infinite;
+}
+
+@keyframes tw-blink {
+  50% {
+    opacity: 0;
+  }
+}
 .cursor {
   display: none;
 }
@@ -500,8 +561,8 @@ footer .container p:last-of-type {
   position: fixed;
   top: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: black;
   color: white;
@@ -520,11 +581,11 @@ footer .container p:last-of-type {
   transition: font-size 0.25s ease, opacity 0.25s ease;
 }
 .has-cursor .cursor.is-hovering {
-  width: 88px;
-  height: 88px;
+  width: 104px;
+  height: 104px;
 }
 .has-cursor .cursor.is-hovering .cursor-label {
-  font-size: 0.5rem;
+  font-size: 0.55rem;
   opacity: 1;
 }
 
@@ -533,6 +594,14 @@ footer .container p:last-of-type {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .js .typewriter,
+  .typewriter .char {
+    opacity: 1;
+  }
+  .tw-caret {
+    display: none;
+    animation: none;
   }
   .cursor {
     transition: none;

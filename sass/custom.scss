@@ -217,7 +217,7 @@ header {
 				grid-column: 1 / -1;
 				width: 100%;
 				position: relative;
-				img {
+				img, video {
 					height: 300px;
 					@include tablet-up {
 						height: 350px;
@@ -287,9 +287,41 @@ header {
 				}
 				p {
 					line-height: 1.5;
-					&:nth-of-type(4) {
-						margin-top: 5%;
+				}
+				.title {
+					font-size: 1.2rem;
+					margin-bottom: 0.75rem;
+				}
+				.chips {
+					display: flex;
+					flex-wrap: wrap;
+					gap: 8px;
+					margin-bottom: 0.75rem;
+					@include tablet-up {
+						justify-content: center;
 					}
+				}
+				.chip {
+					font-family: $font-alternative;
+					font-size: 0.65rem;
+					font-weight: 400;
+					line-height: 1;
+					padding: 6px 10px;
+					border: 1px solid currentColor;
+					border-radius: 999px;
+					white-space: nowrap;
+				}
+				.desc {
+					margin-bottom: 1rem;
+				}
+				.visit {
+					display: inline-block;
+					font-family: $font-alternative;
+					font-size: 0.7rem;
+					padding: 8px 14px;
+					background-color: $main-color;
+					color: $black;
+					border-radius: 999px;
 				}
 			}
 		}
@@ -538,7 +570,7 @@ footer {
 .hl {
 	position: relative;
 	cursor: default;
-	transition: color .3s ease-out, text-shadow .3s ease-out;
+	transition: color .3s ease-out;
 
 	&::after {
 		content: '';
@@ -553,13 +585,47 @@ footer {
 		transition: transform .3s ease-out;
 	}
 
+	// Hollow letters via a real glyph stroke. The fill is the page colour
+	// (not transparent) so each letter knocks out its neighbour's overlapping
+	// stroke — no crossing lines where glyphs sit close together.
 	&:hover {
-		@include text-outline;
 		color: $main-color;
+		-webkit-text-stroke: 2px $black;
 
 		&::after {
 			transform: scaleX(1);
 		}
+	}
+}
+
+// Typewriter — the hero headline types itself in on load. JS wraps each
+// character in a .char span; the caret travels as characters light up.
+// Hidden chars keep their layout space, so there's no reflow jank.
+.js .typewriter {
+	opacity: 0; // hidden until JS has wrapped the characters (no flash)
+}
+
+.typewriter .char {
+	opacity: 0;
+}
+
+.js .typewriter .char.is-shown {
+	opacity: 1;
+}
+
+.tw-caret {
+	display: inline-block;
+	width: .055em;
+	height: .82em;
+	margin-left: .04em;
+	background: $black;
+	vertical-align: baseline;
+	animation: tw-blink 1s steps(1) infinite;
+}
+
+@keyframes tw-blink {
+	50% {
+		opacity: 0;
 	}
 }
 
@@ -583,8 +649,8 @@ footer {
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 14px;
-		height: 14px;
+		width: 20px;
+		height: 20px;
 		border-radius: 50%;
 		background: $black;
 		color: $white;
@@ -605,11 +671,11 @@ footer {
 	}
 
 	.cursor.is-hovering {
-		width: 88px;
-		height: 88px;
+		width: 104px;
+		height: 104px;
 
 		.cursor-label {
-			font-size: .5rem;
+			font-size: .55rem;
 			opacity: 1;
 		}
 	}
@@ -620,6 +686,16 @@ footer {
 		opacity: 1;
 		transform: none;
 		transition: none;
+	}
+
+	.js .typewriter,
+	.typewriter .char {
+		opacity: 1;
+	}
+
+	.tw-caret {
+		display: none;
+		animation: none;
 	}
 
 	.cursor {
