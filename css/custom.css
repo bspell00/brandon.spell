@@ -270,6 +270,35 @@ header h2 {
   border-radius: 999px;
 }
 
+@keyframes blob-morph {
+  0% {
+    border-radius: 64% 36% 56% 44%/46% 62% 38% 54%;
+  }
+  33% {
+    border-radius: 42% 58% 46% 54%/60% 40% 62% 38%;
+  }
+  66% {
+    border-radius: 56% 44% 38% 62%/42% 58% 44% 56%;
+  }
+  100% {
+    border-radius: 38% 62% 60% 40%/54% 44% 58% 42%;
+  }
+}
+@keyframes aura-drift {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    transform: rotate(14deg) scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #about header .container div::before,
+  #about header .container div::after,
+  #about header .container img {
+    animation: none;
+  }
+}
 #about header .container {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -286,7 +315,6 @@ header h2 {
   order: 1;
   position: relative;
   z-index: 0;
-  perspective: 1000px;
   grid-column: 1/-1;
 }
 @media (min-width: 40em) {
@@ -297,27 +325,38 @@ header h2 {
 #about header .container div::before {
   content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  box-shadow: -45px 45px 0px #FFF900, 45px -45px 0px #FFF900;
-  transition: 0.3s ease;
-  transform: rotateY(45deg);
+  inset: -22%;
+  z-index: -1;
+  background: radial-gradient(46% 46% at 26% 32%, #FFF900, transparent 72%), radial-gradient(52% 52% at 74% 64%, #fff, transparent 72%), radial-gradient(40% 40% at 64% 14%, #f6b1b9, transparent 72%);
+  filter: blur(36px) saturate(1.35);
+  animation: aura-drift 12s ease-in-out infinite alternate;
 }
-#about header .container div:hover::before {
-  transform: rotateY(0);
+#about header .container div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  border-radius: 64% 36% 56% 44%/46% 62% 38% 54%;
+  animation: blob-morph 14s ease-in-out infinite alternate;
 }
 #about header .container div:hover img {
-  transform: rotateY(45deg) scale(1.1);
+  transform: scale(1.03);
 }
 #about header .container img {
   position: relative;
-  max-height: 300px;
+  display: block;
+  width: 100%;
+  max-height: 340px;
+  height: 340px;
+  object-fit: cover;
   object-position: 100% 80%;
-  transform: rotateY(0);
+  border-radius: 64% 36% 56% 44%/46% 62% 38% 54%;
+  animation: blob-morph 14s ease-in-out infinite alternate;
+  transition: transform 0.6s ease;
 }
 @media (max-width: 39.9375em) {
   #about header .container h1 {
