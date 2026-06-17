@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!--
+  Source for the social link-preview image (img/og-image.jpg).
+  Edit this file, then regenerate the 1200x630 PNG/JPG with headless Chrome:
+
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+    --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=1 \
+    --screenshot=/tmp/og-image.png --window-size=1200,630 \
+    "file://$(pwd)/og-card.html"
+  sips -s format jpeg -s formatOptions 90 /tmp/og-image.png --out img/og-image.jpg
+
+  This page is NOT linked from the site; it exists only to render the card.
+-->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Space+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background-color: #efd2d5;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    padding: 0 90px;
+  }
+  /* gradient aura, echoing the about-page treatment */
+  body::before {
+    content: "";
+    position: absolute;
+    width: 900px; height: 900px;
+    right: -260px; top: -320px;
+    background: radial-gradient(circle at center,
+      rgba(255,249,0,0.45) 0%,
+      rgba(214,178,229,0.40) 38%,
+      rgba(239,210,213,0) 70%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+  body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  .photo {
+    width: 320px; height: 320px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 6px solid #000;
+    position: relative;
+    z-index: 1;
+  }
+  .copy { position: relative; z-index: 1; }
+  .name {
+    font-weight: 700;
+    font-size: 78px;
+    line-height: 0.98;
+    letter-spacing: -1px;
+    color: #000;
+    text-transform: uppercase;
+  }
+  .role {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.25;
+    color: #000;
+    margin-top: 22px;
+  }
+  .role .hl {
+    background: #FFF900;
+    padding: 0 6px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  .url {
+    font-family: 'Space Mono', monospace;
+    font-size: 26px;
+    color: #000;
+    margin-top: 40px;
+    letter-spacing: 0.5px;
+  }
+  .url::before { content: "↗ "; }
+</style>
+</head>
+<body>
+  <img class="photo" src="img/headshot.jpg" alt="Brandon Spell">
+  <div class="copy">
+    <div class="name">Brandon&nbsp;Spell</div>
+    <div class="role">Graphic &amp; <span class="hl">Web&nbsp;Designer</span></div>
+    <div class="url">brandonspell.com</div>
+  </div>
+</body>
+</html>
