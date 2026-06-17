@@ -146,14 +146,13 @@ video {
 				position: absolute;
 				left: 0;
 				bottom: -5px;
-				visibility: none;
 				transform: scaleX(0);
-				transition: .3s ease-in-out;
+				transform-origin: left center;
+				transition: transform .3s ease-out;
 			}
 		}
 		&:hover:before {
-			visibility: visible;
-			transform: scaleX(1.1);
+			transform: scaleX(1);
 		}
 		&.active {
 			&::after {
@@ -455,23 +454,20 @@ header {
 					&:before {
 						content: "";
 						position: absolute;
-						display: flex;
 						width: 100%;
 						height: 4px;
 						bottom: 0;
 						left: 0;
 						background-color: $yellow;
 						transform: scaleX(0);
-						visibility: hidden;
-						transition: all 0.3s ease-in-out 0s;
+						transform-origin: left center;
+						transition: transform .3s ease-out;
 						@include phone-only {
-							transform: scaleX(1.1);
-							visibility: visible;
+							transform: scaleX(1);
 						}
 					}
 					&:hover:before {
-						visibility: visible;
-						transform: scaleX(1.1);
+						transform: scaleX(1);
 					}
 				}
 			}
@@ -538,6 +534,13 @@ header {
 				margin-bottom: 0.5rem;
 			}
 		}
+		.selected-work a {
+			font-weight: 600;
+			border-bottom: 2px solid $main-color;
+			&:hover {
+				border-bottom-color: $black;
+			}
+		}
 	}
 	.job {
 		margin-bottom: 2rem;
@@ -596,34 +599,19 @@ footer {
 
 // Hero headline — hoverable keywords reuse the (previously unused)
 // text-outline mixin plus the yellow underline sweep from #contact.
+// Underline is a background gradient (not an ::after) so it survives the
+// phrase wrapping across lines — abspos pseudo-elements break on fragmented
+// inlines like "web designer".
 .hl {
-	position: relative;
 	cursor: default;
-	transition: color .3s ease-out;
+	background-image: linear-gradient($yellow, $yellow);
+	background-repeat: no-repeat;
+	background-size: 0% .07em;
+	background-position: 0 calc(100% - .13em);
+	transition: background-size .3s ease-out;
 
-	&::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		bottom: .06em;
-		width: 100%;
-		height: .07em;
-		background: $yellow;
-		transform: scaleX(0);
-		transform-origin: left center;
-		transition: transform .3s ease-out;
-	}
-
-	// Hollow letters via a real glyph stroke. The fill is the page colour
-	// (not transparent) so each letter knocks out its neighbour's overlapping
-	// stroke — no crossing lines where glyphs sit close together.
 	&:hover {
-		color: $main-color;
-		-webkit-text-stroke: 2px $black;
-
-		&::after {
-			transform: scaleX(1);
-		}
+		background-size: 100% .07em;
 	}
 }
 

@@ -103,6 +103,7 @@
     })();
 
     document.querySelectorAll('.project').forEach(function (project) {
+      if (!project.querySelector('a')) return; // design pieces have no link to "View"
       project.addEventListener('mouseenter', function () {
         cursor.classList.add('is-hovering');
       });

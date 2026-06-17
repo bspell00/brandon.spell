@@ -87,14 +87,13 @@ video {
     position: absolute;
     left: 0;
     bottom: -5px;
-    visibility: none;
     transform: scaleX(0);
-    transition: 0.3s ease-in-out;
+    transform-origin: left center;
+    transition: transform 0.3s ease-out;
   }
 }
 #nav a:hover:before {
-  visibility: visible;
-  transform: scaleX(1.1);
+  transform: scaleX(1);
 }
 #nav a.active::after {
   content: "";
@@ -402,25 +401,22 @@ header h2 {
 #contact header .container h1 a:before {
   content: "";
   position: absolute;
-  display: flex;
   width: 100%;
   height: 4px;
   bottom: 0;
   left: 0;
   background-color: #FFF900;
   transform: scaleX(0);
-  visibility: hidden;
-  transition: all 0.3s ease-in-out 0s;
+  transform-origin: left center;
+  transition: transform 0.3s ease-out;
 }
 @media (max-width: 39.9375em) {
   #contact header .container h1 a:before {
-    transform: scaleX(1.1);
-    visibility: visible;
+    transform: scaleX(1);
   }
 }
 #contact header .container h1 a:hover:before {
-  visibility: visible;
-  transform: scaleX(1.1);
+  transform: scaleX(1);
 }
 
 #resume {
@@ -484,6 +480,13 @@ header h2 {
   line-height: 2;
   margin-bottom: 0.5rem;
 }
+#resume .resume-section .selected-work a {
+  font-weight: 600;
+  border-bottom: 2px solid #efd2d5;
+}
+#resume .resume-section .selected-work a:hover {
+  border-bottom-color: black;
+}
 #resume .job {
   margin-bottom: 2rem;
 }
@@ -531,28 +534,15 @@ footer .container p:last-of-type {
 }
 
 .hl {
-  position: relative;
   cursor: default;
-  transition: color 0.3s ease-out;
-}
-.hl::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0.06em;
-  width: 100%;
-  height: 0.07em;
-  background: #FFF900;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.3s ease-out;
+  background-image: linear-gradient(#FFF900, #FFF900);
+  background-repeat: no-repeat;
+  background-size: 0% 0.07em;
+  background-position: 0 calc(100% - 0.13em);
+  transition: background-size 0.3s ease-out;
 }
 .hl:hover {
-  color: #efd2d5;
-  -webkit-text-stroke: 2px black;
-}
-.hl:hover::after {
-  transform: scaleX(1);
+  background-size: 100% 0.07em;
 }
 
 .js .typewriter {
