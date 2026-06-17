@@ -674,7 +674,12 @@ footer {
 		pointer-events: none;
 		z-index: 99999;
 		will-change: transform;
+		opacity: 0; // hidden until JS positions it at the real pointer (is-active)
 		transition: width .3s ease, height .3s ease, background-color .3s ease;
+	}
+
+	.cursor.is-active {
+		opacity: 1;
 	}
 
 	.cursor-label {

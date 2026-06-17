@@ -598,7 +598,11 @@ footer .container p:last-of-type {
   pointer-events: none;
   z-index: 99999;
   will-change: transform;
+  opacity: 0;
   transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+.has-cursor .cursor.is-active {
+  opacity: 1;
 }
 .has-cursor .cursor-label {
   font-family: "Space Mono", monospace;

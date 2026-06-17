@@ -83,22 +83,29 @@
   if (cursor && finePointer.matches) {
     document.body.classList.add('has-cursor');
 
-    var targetX = window.innerWidth / 2;
-    var targetY = window.innerHeight / 2;
-    var posX = targetX;
-    var posY = targetY;
+    var targetX, targetY, posX, posY;
     var ease = reduceMotion.matches ? 1 : 0.28; // 1 = snap, no trailing
+    var active = false; // stays false until the first pointer move, so the dot
+                        // is never parked at screen center on page load
 
     document.addEventListener('mousemove', function (e) {
       targetX = e.clientX;
       targetY = e.clientY;
+      if (!active) { // first move: snap straight to the pointer, then reveal
+        posX = targetX;
+        posY = targetY;
+        active = true;
+        cursor.classList.add('is-active');
+      }
     });
 
     (function render() {
-      posX += (targetX - posX) * ease;
-      posY += (targetY - posY) * ease;
-      cursor.style.transform =
-        'translate(' + posX + 'px,' + posY + 'px) translate(-50%,-50%)';
+      if (active) {
+        posX += (targetX - posX) * ease;
+        posY += (targetY - posY) * ease;
+        cursor.style.transform =
+          'translate(' + posX + 'px,' + posY + 'px) translate(-50%,-50%)';
+      }
       requestAnimationFrame(render);
     })();
 
