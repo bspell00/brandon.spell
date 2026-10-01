@@ -83,39 +83,16 @@
   if (cursor && finePointer.matches) {
     document.body.classList.add('has-cursor');
 
-    var targetX, targetY, posX, posY;
-    // Share of the remaining gap closed per 60fps frame. High enough to feel
-    // attached to the pointer, with just a hint of trail. 1 = snap.
-    var ease = reduceMotion.matches ? 1 : 0.6;
-    var lastTime = 0;
-    var active = false; // stays false until the first pointer move, so the dot
-                        // is never parked at screen center on page load
-
-    document.addEventListener('mousemove', function (e) {
-      targetX = e.clientX;
-      targetY = e.clientY;
-      if (!active) { // first move: snap straight to the pointer, then reveal
-        posX = targetX;
-        posY = targetY;
-        active = true;
-        cursor.classList.add('is-active');
-      }
-    });
-
-    (function render(now) {
-      // Scale the easing by elapsed time so the trail feels the same on
-      // 60Hz and 120Hz screens (and doesn't lag after a dropped frame).
-      var frames = lastTime ? Math.min((now - lastTime) / 16.667, 4) : 1;
-      lastTime = now || 0;
-      if (active) {
-        var k = 1 - Math.pow(1 - ease, frames);
-        posX += (targetX - posX) * k;
-        posY += (targetY - posY) * k;
-        cursor.style.transform =
-          'translate(' + posX + 'px,' + posY + 'px) translate(-50%,-50%)';
-      }
-      requestAnimationFrame(render);
-    })();
+    // The dot sits exactly on the pointer: it's moved straight from each
+    // pointer event, with no easing or trail, so it never feels behind.
+    // It stays hidden until the first move, so it's never parked at screen
+    // center on page load.
+    document.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      cursor.style.transform =
+        'translate(' + e.clientX + 'px,' + e.clientY + 'px) translate(-50%,-50%)';
+      cursor.classList.add('is-active');
+    }, { passive: true });
 
     document.querySelectorAll('.project').forEach(function (project) {
       if (!project.querySelector('a')) return; // design pieces have no link to "View"
