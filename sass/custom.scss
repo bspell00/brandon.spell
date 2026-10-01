@@ -171,6 +171,34 @@ video {
 	}
 }
 
+// Always-visible way into the enquiry form. Same pill as the cards' "visit
+// site", inverted. Sits above the work-card overlays (z-index 10000).
+.start-project {
+	position: fixed;
+	z-index: 10001;
+	top: 1.25rem;
+	right: 1.25rem;
+	padding: 12px 20px;
+	font-family: $font-alternative;
+	font-size: .7rem;
+	text-transform: uppercase;
+	white-space: nowrap;
+	color: $white;
+	background: $black;
+	border-radius: 999px;
+	transition: background-color .3s ease, color .3s ease;
+	@include tablet-up {
+		top: 2rem;
+		right: 2rem;
+		padding: 14px 24px;
+		font-size: .75rem;
+	}
+	&:hover, &:focus-visible {
+		color: $black;
+		background: $yellow;
+	}
+}
+
 //////////////////////////////////////Generic Header
 
 header {

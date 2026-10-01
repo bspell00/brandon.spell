@@ -107,6 +107,34 @@ video {
   bottom: -5px;
 }
 
+.start-project {
+  position: fixed;
+  z-index: 10001;
+  top: 1.25rem;
+  right: 1.25rem;
+  padding: 12px 20px;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: white;
+  background: black;
+  border-radius: 999px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+@media (min-width: 40em) {
+  .start-project {
+    top: 2rem;
+    right: 2rem;
+    padding: 14px 24px;
+    font-size: 0.75rem;
+  }
+}
+.start-project:hover, .start-project:focus-visible {
+  color: black;
+  background: #FFF900;
+}
+
 header {
   position: relative;
   display: grid;
