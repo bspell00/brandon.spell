@@ -1,0 +1,14 @@
+{
+  "name": "brandonspell",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler pages dev . --port 8000",
+    "sass": "sass --watch sass/custom.scss:css/custom.css"
+  },
+  "dependencies": {
+    "worker-mailer": "^1.2.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.146.0"
+  }
+}

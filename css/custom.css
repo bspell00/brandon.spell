@@ -418,6 +418,197 @@ header h2 {
 #contact header .container h1 a:hover:before {
   transform: scaleX(1);
 }
+#contact header {
+  padding: 5rem 0 3rem;
+}
+#contact .form-status {
+  max-width: 44rem;
+  margin-top: 3rem;
+  padding: 1rem 1.25rem;
+  font-family: "Space Mono", monospace;
+  font-size: 0.8rem;
+  border: 2px solid black;
+  border-left-width: 8px;
+  border-left-color: #FFF900;
+  scroll-margin-top: 3rem;
+}
+#contact .form-status.is-error {
+  border-left-color: black;
+}
+#contact form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  margin-top: 4rem;
+  max-width: 44rem;
+}
+@media (min-width: 40em) {
+  #contact form {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3rem;
+  }
+}
+#contact form label {
+  display: block;
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+#contact form .full {
+  grid-column: 1/-1;
+}
+#contact form input, #contact form select, #contact form textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: black;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid black;
+  border-radius: 0;
+}
+#contact form input:focus, #contact form select:focus, #contact form textarea:focus {
+  outline: none;
+  border-bottom-color: #FFF900;
+}
+#contact form textarea {
+  resize: vertical;
+}
+#contact form .gotcha {
+  display: none;
+}
+#contact form button {
+  justify-self: start;
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  color: white;
+  background: black;
+  border: 0;
+  border-radius: 999px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+#contact form button:hover, #contact form button:focus-visible {
+  color: black;
+  background: #FFF900;
+}
+
+#services {
+  min-height: 100vh;
+  padding-top: 5rem;
+}
+#services .container {
+  padding-left: 5rem;
+}
+#services .services-intro {
+  margin-bottom: 4rem;
+}
+#services .services-intro h1 {
+  font-weight: 400;
+  font-size: 10vw;
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+@media (min-width: 40em) {
+  #services .services-intro h1 {
+    font-size: 5vw;
+  }
+}
+#services .services-intro p {
+  max-width: 34rem;
+}
+#services .service {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0 3rem;
+  border-top: 2px solid black;
+}
+@media (min-width: 40em) {
+  #services .service {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+  }
+}
+#services .service h2 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+#services .service .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#services .service .chip {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+#services .service ul {
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+#services .service ul li {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  line-height: 2;
+}
+#services .service .seen {
+  font-family: "Space Mono", monospace;
+  font-size: 0.7rem;
+}
+#services .service .seen a {
+  font-family: "Space Mono", monospace;
+  font-weight: 600;
+  border-bottom: 2px solid black;
+}
+#services .service .seen a:hover {
+  border-bottom-color: #FFF900;
+}
+#services .services-cta {
+  padding: 3rem 0 5rem;
+  border-top: 2px solid black;
+}
+#services .services-cta h2 {
+  font-weight: 400;
+  font-size: 8vw;
+  line-height: 1.1;
+}
+@media (min-width: 40em) {
+  #services .services-cta h2 {
+    font-size: 3.5vw;
+  }
+}
+#services .services-cta h2 a {
+  background-image: linear-gradient(#FFF900, #FFF900);
+  background-repeat: no-repeat;
+  background-size: 100% 0.07em;
+  background-position: 0 calc(100% - 0.05em);
+}
+
+.work-cta {
+  padding: 5rem 1.5625rem 3rem;
+  text-align: center;
+  font-family: "Space Mono", monospace;
+}
+.work-cta a {
+  font-family: "Space Mono", monospace;
+  border-bottom: 2px solid black;
+}
+.work-cta a:hover {
+  border-bottom-color: #FFF900;
+}
 
 #resume {
   min-height: 100vh;
@@ -580,6 +771,7 @@ footer .container p:last-of-type {
   cursor: none;
 }
 .has-cursor a,
+.has-cursor button,
 .has-cursor .project {
   cursor: none;
 }

@@ -473,6 +473,197 @@ header {
 			}
 		}
 	}
+	// Project enquiry form — sits under the headline, so the header needs
+	// breathing room once it's taller than the viewport.
+	header {
+		padding: 5rem 0 3rem;
+	}
+	.form-status {
+		max-width: 44rem;
+		margin-top: 3rem;
+		padding: 1rem 1.25rem;
+		font-family: $font-alternative;
+		font-size: .8rem;
+		border: 2px solid $black;
+		border-left-width: 8px;
+		border-left-color: $yellow;
+		scroll-margin-top: 3rem;
+		&.is-error {
+			border-left-color: $black;
+		}
+	}
+	form {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.75rem;
+		margin-top: 4rem;
+		max-width: 44rem;
+		@include tablet-up {
+			grid-template-columns: 1fr 1fr;
+			column-gap: 3rem;
+		}
+		label {
+			display: block;
+			font-family: $font-alternative;
+			font-size: .7rem;
+			text-transform: uppercase;
+		}
+		.full {
+			grid-column: 1 / -1;
+		}
+		input, select, textarea {
+			display: block;
+			box-sizing: border-box;
+			width: 100%;
+			margin-top: .5rem;
+			padding: .5rem 0;
+			font-family: $font-stack;
+			font-size: 1rem;
+			color: $black;
+			background: transparent;
+			border: 0;
+			border-bottom: 2px solid $black;
+			border-radius: 0;
+			&:focus {
+				outline: none;
+				border-bottom-color: $yellow;
+			}
+		}
+		textarea {
+			resize: vertical;
+		}
+		// spam honeypot — real visitors never see or reach it
+		.gotcha {
+			display: none;
+		}
+		button {
+			justify-self: start;
+			font-family: $font-alternative;
+			font-size: .75rem;
+			text-transform: uppercase;
+			padding: 14px 24px;
+			color: $white;
+			background: $black;
+			border: 0;
+			border-radius: 999px;
+			transition: background-color .3s ease, color .3s ease;
+			&:hover, &:focus-visible {
+				color: $black;
+				background: $yellow;
+			}
+		}
+	}
+}
+
+
+
+//////////////////////////////////////Services
+
+#services {
+	min-height: 100vh;
+	padding-top: 5rem;
+	.container {
+		padding-left: 5rem;
+	}
+	.services-intro {
+		margin-bottom: 4rem;
+		h1 {
+			font-weight: 400;
+			font-size: 10vw;
+			line-height: 1;
+			margin-bottom: 2rem;
+			@include tablet-up {
+				font-size: 5vw;
+			}
+		}
+		p {
+			max-width: 34rem;
+		}
+	}
+	.service {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		padding: 2rem 0 3rem;
+		border-top: 2px solid $black;
+		@include tablet-up {
+			grid-template-columns: 1fr 2fr;
+			gap: 4rem;
+		}
+		h2 {
+			font-weight: 600;
+			font-size: 1.25rem;
+			text-transform: uppercase;
+			margin-bottom: 1rem;
+		}
+		.chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+		}
+		.chip {
+			font-family: $font-alternative;
+			font-size: 0.65rem;
+			line-height: 1;
+			padding: 6px 10px;
+			border: 1px solid currentColor;
+			border-radius: 999px;
+			white-space: nowrap;
+		}
+		ul {
+			margin: 1rem 0;
+			padding-left: 1.25rem;
+			li {
+				font-family: $font-stack;
+				font-size: .75rem;
+				line-height: 2;
+			}
+		}
+		.seen {
+			font-family: $font-alternative;
+			font-size: .7rem;
+			a {
+				font-family: $font-alternative;
+				font-weight: 600;
+				border-bottom: 2px solid $black;
+				&:hover {
+					border-bottom-color: $yellow;
+				}
+			}
+		}
+	}
+	.services-cta {
+		padding: 3rem 0 5rem;
+		border-top: 2px solid $black;
+		h2 {
+			font-weight: 400;
+			font-size: 8vw;
+			line-height: 1.1;
+			@include tablet-up {
+				font-size: 3.5vw;
+			}
+			a {
+				background-image: linear-gradient($yellow, $yellow);
+				background-repeat: no-repeat;
+				background-size: 100% .07em;
+				background-position: 0 calc(100% - .05em);
+			}
+		}
+	}
+}
+
+// Quiet pointer from the portfolio grid to the services page
+.work-cta {
+	padding: 5rem 1.5625rem 3rem;
+	text-align: center;
+	font-family: $font-alternative;
+	a {
+		font-family: $font-alternative;
+		border-bottom: 2px solid $black;
+		&:hover {
+			border-bottom-color: $yellow;
+		}
+	}
 }
 
 
@@ -655,6 +846,7 @@ footer {
 	cursor: none;
 
 	a,
+	button,
 	.project {
 		cursor: none;
 	}

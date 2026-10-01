@@ -1,0 +1,7 @@
+# Cloudflare Pages config. The site is plain static files served from the
+# repo root; functions/ holds the server-side contact form handler.
+name = "brandonspell"
+pages_build_output_dir = "."
+compatibility_date = "2026-09-01"
+# worker-mailer (Gmail SMTP from functions/api/contact.js) needs this
+compatibility_flags = ["nodejs_compat"]

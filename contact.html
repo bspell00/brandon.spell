@@ -5,13 +5,14 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Brandon Spell</title>
-  <meta name="description" content="Get in touch with Brandon Spell — graphic and web designer.">
+  <meta name="description" content="Get in touch with Brandon Spell — graphic and web designer. Start a website project for your church, ministry or conference.">
+  <link rel="canonical" href="https://www.brandonspell.com/contact">
 
   <!-- Social link preview (Open Graph — Facebook, iMessage, LinkedIn, Slack, etc.) -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.brandonspell.com/contact.html">
+  <meta property="og:url" content="https://www.brandonspell.com/contact">
   <meta property="og:title" content="Contact — Brandon Spell">
-  <meta property="og:description" content="Get in touch with Brandon Spell — graphic and web designer.">
+  <meta property="og:description" content="Get in touch with Brandon Spell — graphic and web designer. Start a website project for your church, ministry or conference.">
   <meta property="og:image" content="https://www.brandonspell.com/img/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -21,10 +22,11 @@
   <!-- Twitter / X card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Contact — Brandon Spell">
-  <meta name="twitter:description" content="Get in touch with Brandon Spell — graphic and web designer.">
+  <meta name="twitter:description" content="Get in touch with Brandon Spell — graphic and web designer. Start a website project for your church, ministry or conference.">
   <meta name="twitter:image" content="https://www.brandonspell.com/img/og-image.jpg">
 
   <link rel="stylesheet" href="css/custom.css">
+  <link rel="icon" href="img/favicon.ico" type="image/ico">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Space+Mono" rel="stylesheet">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 </head>
@@ -34,6 +36,7 @@
 
  <div id="nav">
     <a href="index.html">my work</a>
+    <a href="services.html">services</a>
     <a href="about.html">about</a> 
     <a href="resume.html">resumé</a>
     <a class="active" href="contact.html">contact me</a>
@@ -44,12 +47,76 @@
 <div id="contact">	
 	<header>
 		<div class="container">
-			<h1 class="reveal">I'm easy to get in touch with! You can contact me <a href="mailto:bspell00@gmail.com">here.</a></h1>	
+			<h1 class="reveal">I'm easy to get in touch with! Email me <a href="mailto:bspell00@gmail.com">here,</a> or tell me about your project below.</h1>
+
+			<!-- Handled by functions/api/contact.js (Cloudflare Pages), which redirects back here with ?sent=1 or ?error=… -->
+			<p id="enquiry" class="form-status" role="status" hidden></p>
+			<form class="reveal" action="/api/contact" method="POST">
+				<label>Name
+					<input type="text" name="name" autocomplete="name" required>
+				</label>
+				<label>Email
+					<input type="email" name="email" autocomplete="email" required>
+				</label>
+				<label>Church or organization
+					<input type="text" name="organization" autocomplete="organization">
+				</label>
+				<label>What do you need?
+					<select name="project_type">
+						<option>Conference or event site</option>
+						<option>Church website</option>
+						<option>Launch page</option>
+						<option>Private event RSVP portal</option>
+						<option>Something else</option>
+					</select>
+				</label>
+				<label>Budget
+					<select name="budget">
+						<option>Not sure yet</option>
+						<option>Under $2,000</option>
+						<option>$2,000&ndash;$5,000</option>
+						<option>$5,000&ndash;$10,000</option>
+						<option>$10,000+</option>
+					</select>
+				</label>
+				<label>When do you need it?
+					<input type="text" name="timeline">
+				</label>
+				<label class="full">Tell me about it
+					<textarea name="message" rows="5" required></textarea>
+				</label>
+				<input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+				<button type="submit">Send it &rarr;</button>
+			</form>
 	   </div>
 	</header>
 </div>
 
+<footer>
+  <div class="container">
+    <p>I have a passion for patterns and a love for lines.</p>
+    <p>Brandon Spell  |  2026</p>
+  </div>
+</footer>
+
 <script src="js/main.js"></script>
+<script>
+  // Report the outcome of the enquiry form (see functions/api/contact.js)
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var status = document.getElementById('enquiry');
+    var messages = {
+      sent: "Thanks — your message is on its way. I'll be in touch soon.",
+      invalid: 'Please add your name, a valid email and a message, then send it again.',
+      send: "Something went wrong sending that. Please try again, or email me directly."
+    };
+    var text = params.has('sent') ? messages.sent : messages[params.get('error')];
+    if (!text) return;
+    status.textContent = text;
+    status.classList.toggle('is-error', !params.has('sent'));
+    status.hidden = false;
+  })();
+</script>
 
 </body>
 </html>

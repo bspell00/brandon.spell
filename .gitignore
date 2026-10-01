@@ -1,0 +1,5 @@
+node_modules/
+.wrangler/
+# local secrets for `wrangler pages dev` — never commit
+.dev.vars
+.DS_Store
