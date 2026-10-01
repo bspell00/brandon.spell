@@ -56,6 +56,7 @@
 
     if (reduceMotion.matches) {
       chars.forEach(function (c) { c.classList.add('is-shown'); });
+      typeEl.classList.add('is-typed');
     } else {
       var caret = document.createElement('span');
       caret.className = 'tw-caret';
@@ -64,7 +65,10 @@
 
       var i = 0;
       (function type() {
-        if (i >= chars.length) { return; } // leave caret blinking at the end
+        if (i >= chars.length) { // leave caret blinking at the end
+          typeEl.classList.add('is-typed'); // cue the subline (.hero-sub)
+          return;
+        }
         var c = chars[i];
         c.classList.add('is-shown');
         c.parentNode.insertBefore(caret, c.nextSibling); // caret follows

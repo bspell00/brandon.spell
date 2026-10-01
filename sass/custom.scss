@@ -140,6 +140,13 @@ video {
 		margin-right: 20px;
 		font-size: .75em;
 		font-family: $font-alternative;
+		// bigger and bolder on desktop, where there's room, so it reads as navigation
+		@include desktop-up {
+			margin-right: 32px;
+			font-size: .95rem;
+			font-weight: 700;
+			letter-spacing: .04em;
+		}
 		@include tablet-up {
 			&:before {
 				content: '';
@@ -222,6 +229,38 @@ header {
 	h2 {
 		font-weight: 400;
 	}
+	// Plain-spoken line under the typewriter headline: what I build, for whom
+	.hero-sub {
+		max-width: 38rem;
+		margin-top: 2rem;
+		font-size: 1rem;
+		line-height: 1.6;
+		@include tablet-up {
+			font-size: 1.25rem;
+		}
+		a {
+			font-family: $font-alternative;
+			font-size: .8em;
+			white-space: nowrap;
+			margin-left: .25em;
+			border-bottom: 2px solid $black;
+			&:hover {
+				border-bottom-color: $yellow;
+			}
+		}
+	}
+}
+
+// The subline waits for the headline to finish typing (main.js adds .is-typed)
+.js .hero-sub {
+	opacity: 0;
+	transform: translateY(12px);
+	transition: opacity .6s ease-out, transform .6s ease-out;
+}
+
+.js .typewriter.is-typed + .hero-sub {
+	opacity: 1;
+	transform: none;
 }
 
 
