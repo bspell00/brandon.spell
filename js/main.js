@@ -84,7 +84,10 @@
     document.body.classList.add('has-cursor');
 
     var targetX, targetY, posX, posY;
-    var ease = reduceMotion.matches ? 1 : 0.28; // 1 = snap, no trailing
+    // Share of the remaining gap closed per 60fps frame. High enough to feel
+    // attached to the pointer, with just a hint of trail. 1 = snap.
+    var ease = reduceMotion.matches ? 1 : 0.6;
+    var lastTime = 0;
     var active = false; // stays false until the first pointer move, so the dot
                         // is never parked at screen center on page load
 
@@ -99,10 +102,15 @@
       }
     });
 
-    (function render() {
+    (function render(now) {
+      // Scale the easing by elapsed time so the trail feels the same on
+      // 60Hz and 120Hz screens (and doesn't lag after a dropped frame).
+      var frames = lastTime ? Math.min((now - lastTime) / 16.667, 4) : 1;
+      lastTime = now || 0;
       if (active) {
-        posX += (targetX - posX) * ease;
-        posY += (targetY - posY) * ease;
+        var k = 1 - Math.pow(1 - ease, frames);
+        posX += (targetX - posX) * k;
+        posY += (targetY - posY) * k;
         cursor.style.transform =
           'translate(' + posX + 'px,' + posY + 'px) translate(-50%,-50%)';
       }

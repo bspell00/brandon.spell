@@ -44,52 +44,71 @@
 
 
 
-<div id="contact">	
-	<header>
-		<div class="container">
-			<h1 class="reveal">I'm easy to get in touch with! Email me <a href="mailto:bspell00@gmail.com">here,</a> or tell me about your project below.</h1>
+<div id="contact">
+	<div class="container">
 
-			<!-- Handled by functions/api/contact.js (Cloudflare Pages), which redirects back here with ?sent=1 or ?error=… -->
+		<div class="contact-intro">
+			<h1 class="reveal">I'm easy to get in touch with!</h1>
+			<p class="reveal">Tell me a little about your project and I'll get back to you. Rather just email? Write me at <a href="mailto:bspell00@gmail.com">bspell00@gmail.com</a>.</p>
+		</div>
+
+		<!-- Handled by functions/api/contact.js (Cloudflare Pages), which redirects back here with ?sent=1 or ?error=… -->
+		<form class="contact-form reveal" action="/api/contact" method="POST">
 			<p id="enquiry" class="form-status" role="status" hidden></p>
-			<form class="reveal" action="/api/contact" method="POST">
-				<label>Name
+
+			<div class="field-row">
+				<label class="field">
+					<span>Your name</span>
 					<input type="text" name="name" autocomplete="name" required>
 				</label>
-				<label>Email
+				<label class="field">
+					<span>Email</span>
 					<input type="email" name="email" autocomplete="email" required>
 				</label>
-				<label>Church or organization
-					<input type="text" name="organization" autocomplete="organization">
-				</label>
-				<label>What do you need?
-					<select name="project_type">
-						<option>Conference or event site</option>
-						<option>Church website</option>
-						<option>Launch page</option>
-						<option>Private event RSVP portal</option>
-						<option>Something else</option>
-					</select>
-				</label>
-				<label>Budget
-					<select name="budget">
-						<option>Not sure yet</option>
-						<option>Under $2,000</option>
-						<option>$2,000&ndash;$5,000</option>
-						<option>$5,000&ndash;$10,000</option>
-						<option>$10,000+</option>
-					</select>
-				</label>
-				<label>When do you need it?
-					<input type="text" name="timeline">
-				</label>
-				<label class="full">Tell me about it
-					<textarea name="message" rows="5" required></textarea>
-				</label>
-				<input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
-				<button type="submit">Send it &rarr;</button>
-			</form>
-	   </div>
-	</header>
+			</div>
+
+			<label class="field">
+				<span>Church or organization</span>
+				<input type="text" name="organization" autocomplete="organization">
+			</label>
+
+			<fieldset class="field">
+				<legend>What do you need? <em>Pick any that apply</em></legend>
+				<div class="choices">
+					<label><input type="checkbox" name="project_type" value="Conference or event site"><span>Conference or event site</span></label>
+					<label><input type="checkbox" name="project_type" value="Church website"><span>Church website</span></label>
+					<label><input type="checkbox" name="project_type" value="Launch page"><span>Launch page</span></label>
+					<label><input type="checkbox" name="project_type" value="Private event RSVP portal"><span>RSVP portal</span></label>
+					<label><input type="checkbox" name="project_type" value="Something else"><span>Something else</span></label>
+				</div>
+			</fieldset>
+
+			<fieldset class="field">
+				<legend>Budget</legend>
+				<div class="choices">
+					<label><input type="radio" name="budget" value="Under $2,000"><span>Under $2k</span></label>
+					<label><input type="radio" name="budget" value="$2,000–$5,000"><span>$2k&ndash;5k</span></label>
+					<label><input type="radio" name="budget" value="$5,000–$10,000"><span>$5k&ndash;10k</span></label>
+					<label><input type="radio" name="budget" value="$10,000+"><span>$10k+</span></label>
+					<label><input type="radio" name="budget" value="Not sure yet"><span>Not sure yet</span></label>
+				</div>
+			</fieldset>
+
+			<label class="field">
+				<span>When do you need it?</span>
+				<input type="text" name="timeline" placeholder="e.g. before our March conference">
+			</label>
+
+			<label class="field">
+				<span>Tell me about it</span>
+				<textarea name="message" rows="5" required></textarea>
+			</label>
+
+			<input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+			<button type="submit">Send it &rarr;</button>
+		</form>
+
+	</div>
 </div>
 
 <footer>

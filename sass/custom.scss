@@ -115,6 +115,9 @@ video {
 	position: absolute;
 	text-transform: uppercase;
 	display: flex;
+	// keep the five links on one rotated line, even on narrow phones
+	width: max-content;
+	white-space: nowrap;
 	transform: rotate(-90deg);
 	transform-origin: left center;
 	@include tablet-up {
@@ -441,116 +444,187 @@ header {
 }
 
 
+//////////////////////////////////////404
+
+#not-found h1 a {
+	background-image: linear-gradient($yellow, $yellow);
+	background-repeat: no-repeat;
+	background-size: 100% .07em;
+	background-position: 0 calc(100% - .05em);
+}
+
+
 //////////////////////////////////////Contact
 
 
+// Intro on the left (sticky, like the résumé), form on the right. Fields are
+// quiet underlines; choices reuse the pill chips from the work grid.
 #contact {
-	header {
-		.container {
-			align-items: center;
-			h1 {
-				a {
-					position: relative;
-					&:before {
-						content: "";
-						position: absolute;
-						width: 100%;
-						height: 4px;
-						bottom: 0;
-						left: 0;
-						background-color: $yellow;
-						transform: scaleX(0);
-						transform-origin: left center;
-						transition: transform .3s ease-out;
-						@include phone-only {
-							transform: scaleX(1);
-						}
-					}
-					&:hover:before {
-						transform: scaleX(1);
-					}
-				}
-			}
+	min-height: 100vh;
+	padding: 5rem 0 3rem;
+	> .container {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 3rem;
+		padding-left: 5rem;
+		@include tablet-up {
+			grid-template-columns: 2fr 3fr;
+			gap: 4rem;
+			align-items: start;
 		}
 	}
-	// Project enquiry form — sits under the headline, so the header needs
-	// breathing room once it's taller than the viewport.
-	header {
-		padding: 5rem 0 3rem;
+	.contact-intro {
+		@include tablet-up {
+			position: sticky;
+			top: 5rem;
+		}
+		h1 {
+			font-weight: 400;
+			font-size: 10vw;
+			line-height: 1;
+			margin-bottom: 1.5rem;
+			@include tablet-up {
+				font-size: 4vw;
+			}
+		}
+		p {
+			max-width: 22rem;
+		}
+		a {
+			font-weight: 600;
+			background-image: linear-gradient($yellow, $yellow);
+			background-repeat: no-repeat;
+			background-size: 100% 4px;
+			background-position: 0 100%;
+		}
 	}
 	.form-status {
-		max-width: 44rem;
-		margin-top: 3rem;
+		margin: 0 0 2.5rem;
 		padding: 1rem 1.25rem;
 		font-family: $font-alternative;
-		font-size: .8rem;
-		border: 2px solid $black;
-		border-left-width: 8px;
-		border-left-color: $yellow;
+		font-size: .75rem;
+		line-height: 1.6;
+		background: $white;
+		border-left: 6px solid $yellow;
 		scroll-margin-top: 3rem;
 		&.is-error {
 			border-left-color: $black;
 		}
 	}
-	form {
+	.contact-form {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1.75rem;
-		margin-top: 4rem;
-		max-width: 44rem;
+		gap: 2.25rem;
+	}
+	.field-row {
+		display: grid;
+		gap: 2.25rem;
 		@include tablet-up {
 			grid-template-columns: 1fr 1fr;
-			column-gap: 3rem;
+			gap: 2rem;
 		}
-		label {
+	}
+	.field {
+		display: block;
+		min-width: 0;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		> span, legend {
 			display: block;
+			padding: 0;
+			margin-bottom: .6rem;
+			font-family: $font-alternative;
+			font-size: .65rem;
+			letter-spacing: .05em;
+			text-transform: uppercase;
+			em {
+				font-style: normal;
+				text-transform: none;
+				opacity: .55;
+				margin-left: .5em;
+			}
+		}
+	}
+	// Underline fields; on focus a yellow bar sweeps in, like the hero highlights
+	input[type="text"], input[type="email"], textarea {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
+		padding: .35rem 0 .6rem;
+		font-family: $font-stack;
+		font-size: 1.15rem;
+		color: $black;
+		border: 0;
+		border-bottom: 1px solid $black;
+		border-radius: 0;
+		background: linear-gradient($yellow, $yellow) no-repeat 0 100% / 0% 4px;
+		transition: background-size .3s ease-out;
+		&::placeholder {
+			color: rgba(0,0,0,.35);
+		}
+		&:focus {
+			outline: none;
+			background-size: 100% 4px;
+		}
+	}
+	textarea {
+		resize: none;
+		line-height: 1.5;
+	}
+	.choices {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		label {
+			position: relative;
+		}
+		input {
+			position: absolute;
+			opacity: 0;
+			width: 1px;
+			height: 1px;
+		}
+		span {
+			display: inline-block;
 			font-family: $font-alternative;
 			font-size: .7rem;
-			text-transform: uppercase;
+			line-height: 1;
+			padding: 10px 14px;
+			border: 1px solid $black;
+			border-radius: 999px;
+			transition: background-color .2s ease, color .2s ease;
 		}
-		.full {
-			grid-column: 1 / -1;
+		label:hover span {
+			background: $yellow;
 		}
-		input, select, textarea {
-			display: block;
-			box-sizing: border-box;
-			width: 100%;
-			margin-top: .5rem;
-			padding: .5rem 0;
-			font-family: $font-stack;
-			font-size: 1rem;
-			color: $black;
-			background: transparent;
-			border: 0;
-			border-bottom: 2px solid $black;
-			border-radius: 0;
-			&:focus {
-				outline: none;
-				border-bottom-color: $yellow;
-			}
-		}
-		textarea {
-			resize: vertical;
-		}
-		// spam honeypot — real visitors never see or reach it
-		.gotcha {
-			display: none;
-		}
-		button {
-			justify-self: start;
-			font-family: $font-alternative;
-			font-size: .75rem;
-			text-transform: uppercase;
-			padding: 14px 24px;
+		input:checked + span {
 			color: $white;
 			background: $black;
-			border: 0;
-			border-radius: 999px;
-			transition: background-color .3s ease, color .3s ease;
-			&:hover, &:focus-visible {
-				color: $black;
-				background: $yellow;
-			}
+		}
+		input:focus-visible + span {
+			outline: 2px solid $black;
+			outline-offset: 3px;
+		}
+	}
+	// spam honeypot — real visitors never see or reach it. Needs the input
+	// type in the selector to outrank the text-field rule above.
+	input[type="text"].gotcha {
+		display: none;
+	}
+	button {
+		justify-self: start;
+		font-family: $font-alternative;
+		font-size: .75rem;
+		text-transform: uppercase;
+		padding: 16px 28px;
+		color: $white;
+		background: $black;
+		border: 0;
+		border-radius: 999px;
+		transition: background-color .3s ease, color .3s ease;
+		&:hover, &:focus-visible {
+			color: $black;
+			background: $yellow;
 		}
 	}
 }
@@ -847,6 +921,9 @@ footer {
 
 	a,
 	button,
+	label,
+	input,
+	textarea,
 	.project {
 		cursor: none;
 	}

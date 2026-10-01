@@ -49,6 +49,8 @@ export async function onRequestPost({ request, env }) {
 
   const data = {};
   for (const field of FIELDS) data[field] = clean(form.get(field), field);
+  // "What do you need?" is multi-select: one project_type entry per ticked box
+  data.project_type = clean(form.getAll('project_type').join(', '), 'project_type');
 
   if (!data.name || !data.message || !EMAIL_PATTERN.test(data.email)) {
     return back(request, 'error=invalid');
