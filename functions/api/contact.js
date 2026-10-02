@@ -6,9 +6,15 @@
 //   GMAIL_USER          the Gmail address that sends (and, by default, receives)
 //   GMAIL_APP_PASSWORD  a Google app password for that account — never commit it
 //   CONTACT_TO          optional: deliver somewhere other than GMAIL_USER
+//   TURNSTILE_SECRET_KEY  secret for the "brandonspell.com contact form" Turnstile
+//                         widget (Cloudflare dashboard → Turnstile)
 //
-// The form posts natively (no JS required), so every outcome is a redirect
-// back to contact.html with ?sent=1 or ?error=… for the page to report.
+// Every outcome is a redirect back to contact.html with ?sent=1 or ?error=…
+// for the page to report.
+//
+// Spam: obvious bots (honeypot filled, sent too fast, or the junk-token
+// pattern) get a fake success so they don't adapt; everything else must pass
+// Cloudflare Turnstile before an email goes out.
 
 import { WorkerMailer } from 'worker-mailer';
 
@@ -24,6 +30,28 @@ const LABELS = {
 };
 const MAX_LENGTH = { message: 5000 }; // everything else is a short single line
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// contact.html records how long the page was open before sending; people
+// take longer than this, form-filling bots don't (or don't run the script).
+const MIN_FILL_MS = 3000;
+// The 2026-10-02 spam: name and organization both one long run of capitals
+// and digits, e.g. NATREGTEGH2738925NEYRTHYT.
+const JUNK_TOKEN = /^[A-Z0-9]{12,}$/;
+
+async function passesTurnstile(token, secret, ip) {
+  const body = new FormData();
+  body.append('secret', secret);
+  body.append('response', token);
+  if (ip) body.append('remoteip', ip);
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
+    const outcome = await res.json();
+    if (!outcome.success) console.error('contact: turnstile rejected —', (outcome['error-codes'] || []).join(', '));
+    return outcome.success === true;
+  } catch (err) {
+    console.error('contact: turnstile check failed —', err && err.message);
+    return false;
+  }
+}
 
 function back(request, query) {
   return Response.redirect(new URL('/contact?' + query + '#enquiry', request.url).toString(), 303);
@@ -44,16 +72,30 @@ export async function onRequestPost({ request, env }) {
     return back(request, 'error=invalid');
   }
 
-  // Honeypot: bots fill every field. Pretend it worked so they move on.
-  if (form.get('_gotcha')) return back(request, 'sent=1');
-
   const data = {};
   for (const field of FIELDS) data[field] = clean(form.get(field), field);
   // "What do you need?" is multi-select: one project_type entry per ticked box
   data.project_type = clean(form.getAll('project_type').join(', '), 'project_type');
 
+  // Obvious bots: pretend it worked so they move on.
+  const elapsed = Number(form.get('elapsed'));
+  const junk = data.name === data.organization && JUNK_TOKEN.test(data.name);
+  if (form.get('_gotcha') || !(elapsed >= MIN_FILL_MS) || junk) {
+    console.log('contact: dropped as spam', { gotcha: !!form.get('_gotcha'), elapsed, junk });
+    return back(request, 'sent=1');
+  }
+
   if (!data.name || !data.message || !EMAIL_PATTERN.test(data.email)) {
     return back(request, 'error=invalid');
+  }
+
+  if (!env.TURNSTILE_SECRET_KEY) {
+    console.error('contact: TURNSTILE_SECRET_KEY is not set');
+    return back(request, 'error=send');
+  }
+  const token = String(form.get('cf-turnstile-response') || '');
+  if (!token || !(await passesTurnstile(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP')))) {
+    return back(request, 'error=verify');
   }
 
   if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) {

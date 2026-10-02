@@ -29,6 +29,8 @@
   <link rel="icon" href="img/favicon.ico" type="image/ico">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Space+Mono:400,700" rel="stylesheet">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+  <!-- Cloudflare Turnstile: the spam check above the Send button -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -105,6 +107,8 @@
 			</label>
 
 			<input class="gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+			<input type="hidden" name="elapsed" value="">
+			<div class="cf-turnstile" data-sitekey="0x4AAAAAAFMUvg7bPX7c4LLk" data-theme="light"></div>
 			<button type="submit">Send it &rarr;</button>
 		</form>
 
@@ -120,13 +124,24 @@
 
 <script src="js/main.js?v=3"></script>
 <script>
-  // Report the outcome of the enquiry form (see functions/api/contact.js)
+  // Record how long the page was open before sending; the form function
+  // treats very fast sends as bots (see functions/api/contact.js)
+  (function () {
+    var opened = Date.now();
+    var form = document.querySelector('.contact-form');
+    form.addEventListener('submit', function () {
+      form.elements.elapsed.value = Date.now() - opened;
+    });
+  })();
+
+  // Report the outcome of the enquiry form
   (function () {
     var params = new URLSearchParams(location.search);
     var status = document.getElementById('enquiry');
     var messages = {
       sent: "Thanks — your message is on its way. I'll be in touch soon.",
       invalid: 'Please add your name, a valid email and a message, then send it again.',
+      verify: 'Please complete the quick check above the Send button, then send it again.',
       send: "Something went wrong sending that. Please try again, or email me directly."
     };
     var text = params.has('sent') ? messages.sent : messages[params.get('error')];
