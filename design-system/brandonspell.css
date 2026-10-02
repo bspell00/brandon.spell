@@ -1,0 +1,348 @@
+/* Brandon Spell design system: the brandonspell.com look as portable CSS.
+ *
+ * Every value here is copied from sass/custom.scss, the site's only
+ * stylesheet. The site's own rules are scoped to page ids (#work, #contact…),
+ * so this file restates them as reusable `bs-` classes for Claude Design.
+ * When a value changes in sass/custom.scss, change it here too.
+ *
+ * Breakpoints (from the SCSS mixins; CSS variables can't drive @media):
+ *   phone-only   max-width 39.9375em
+ *   tablet-up    min-width 40em
+ *   desktop-up   min-width 64em
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Space+Mono:wght@400;700&display=swap');
+
+/* -- Tokens ------------------------------------------------------------ */
+:root {
+  /* colour ($main-color, $black, $white, $yellow) */
+  --bs-main-color: #efd2d5;          /* blush page ground */
+  --bs-black: #000;                  /* all text, rules, solid pills */
+  --bs-white: #fff;                  /* text on black */
+  --bs-yellow: #fff900;              /* highlight only: underlines, hover, focus */
+  --bs-ink-muted: rgba(0, 0, 0, .6); /* secondary text (résumé dates) */
+  --bs-ink-placeholder: rgba(0, 0, 0, .35);
+
+  /* type ($font-stack, $font-alternative) */
+  --bs-font-stack: 'Montserrat', sans-serif;
+  --bs-font-alternative: 'Space Mono', monospace;
+
+  /* spacing */
+  --bs-chip-gap: 8px;
+  --bs-container-max: 65rem;
+  --bs-container-pad: 1.5625rem;
+  --bs-page-inset: 5rem;       /* left padding that clears the rotated nav */
+  --bs-column-gap: 4rem;
+  --bs-stack-gap: 3rem;
+  --bs-form-gap: 2.25rem;
+  --bs-field-row-gap: 2rem;
+  --bs-grid-gap: 50px;
+
+  /* shape and lines */
+  --bs-radius-pill: 999px;
+  --bs-hairline: 1px;
+  --bs-rule: 2px;
+  --bs-highlight-bar: 4px;
+  --bs-highlight-thickness: .07em;
+}
+
+/* -- Page --------------------------------------------------------------- */
+/* Wrap every design in .bs-page: blush ground, black Montserrat, the site's
+   small airy body copy (12px on a 24px line). The element defaults sit in
+   :where() so they carry no weight: any bs- class on the element wins. */
+.bs-page {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bs-main-color);
+  color: var(--bs-black);
+  font-family: var(--bs-font-stack);
+}
+:where(.bs-page) :where(h1, h2, h3, h4, h5, p, a) {
+  font-family: var(--bs-font-stack);
+  margin: 0;
+}
+:where(.bs-page) :where(a) { text-decoration: none; color: var(--bs-black); }
+:where(.bs-page) :where(p) { font-size: .75rem; line-height: 2; }
+
+.bs-container {
+  max-width: var(--bs-container-max);
+  margin: auto;
+  padding: var(--bs-container-pad);
+}
+.bs-inset { padding-left: var(--bs-page-inset); }
+
+/* -- Type --------------------------------------------------------------- */
+/* Display: Montserrat 400, line-height 1, sized to the viewport. */
+.bs-display { font-weight: 400; font-size: 6vw; line-height: 1; }
+.bs-display--page { font-size: 5vw; }
+.bs-display--section { font-size: 4vw; }
+.bs-display--cta { font-size: 3.5vw; line-height: 1.1; }
+@media (max-width: 39.9375em) {
+  .bs-display, .bs-display--page, .bs-display--section { font-size: 10vw; }
+  .bs-display--cta { font-size: 8vw; }
+}
+
+/* The plain-spoken line under a display headline. */
+.bs-lead { max-width: 38rem; font-size: 1rem; line-height: 1.6; }
+@media (min-width: 40em) { .bs-lead { font-size: 1.25rem; } }
+
+.bs-body { font-size: .75rem; line-height: 2; }
+
+/* Uppercase 600 heading for a service row or résumé section. */
+.bs-section-heading {
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.bs-section-heading--ruled {
+  padding-bottom: .5rem;
+  border-bottom: var(--bs-rule) solid var(--bs-black);
+}
+
+/* Small mono aside: dates, "Seen in" lines. */
+.bs-meta { font-family: var(--bs-font-alternative); font-size: .7rem; }
+.bs-meta--muted { color: var(--bs-ink-muted); }
+
+/* -- Highlight ---------------------------------------------------------- */
+/* The yellow underline. Drawn as a background bar so it survives line wraps.
+   .bs-hl sweeps in on hover; .bs-hl--on is always shown. */
+.bs-hl {
+  background-image: linear-gradient(var(--bs-yellow), var(--bs-yellow));
+  background-repeat: no-repeat;
+  background-size: 0% var(--bs-highlight-thickness);
+  background-position: 0 calc(100% - .13em);
+  transition: background-size .3s ease-out;
+}
+.bs-hl:hover, .bs-hl--on { background-size: 100% var(--bs-highlight-thickness); }
+.bs-hl--on { background-position: 0 calc(100% - .05em); }
+
+/* Thick 4px highlight under inline body text (the contact email link). */
+.bs-mark {
+  font-weight: 600;
+  background-image: linear-gradient(var(--bs-yellow), var(--bs-yellow));
+  background-repeat: no-repeat;
+  background-size: 100% var(--bs-highlight-bar);
+  background-position: 0 100%;
+}
+
+/* Inline mono link: 2px black underline that turns yellow on hover. */
+.bs-link {
+  font-family: var(--bs-font-alternative);
+  border-bottom: var(--bs-rule) solid var(--bs-black);
+}
+.bs-link:hover { border-bottom-color: var(--bs-yellow); }
+.bs-lead .bs-link { font-size: .8em; white-space: nowrap; margin-left: .25em; }
+
+/* -- Pills -------------------------------------------------------------- */
+/* Solid black pill button; flips to black-on-yellow on hover and focus. */
+.bs-btn {
+  display: inline-block;
+  font-family: var(--bs-font-alternative);
+  font-size: .7rem;
+  line-height: normal;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 12px 20px;
+  color: var(--bs-white);
+  background: var(--bs-black);
+  border: 0;
+  border-radius: var(--bs-radius-pill);
+  cursor: pointer;
+  transition: background-color .3s ease, color .3s ease;
+}
+@media (min-width: 40em) { .bs-btn { padding: 14px 24px; font-size: .75rem; } }
+.bs-btn:hover, .bs-btn:focus-visible { color: var(--bs-black); background: var(--bs-yellow); }
+.bs-btn--lg { padding: 16px 28px; font-size: .75rem; }
+
+/* The always-visible "Start a project →" button, fixed top-right. */
+.bs-btn--fixed { position: fixed; z-index: 10001; top: 1.25rem; right: 1.25rem; }
+@media (min-width: 40em) { .bs-btn--fixed { top: 2rem; right: 2rem; } }
+
+/* Outline chip: year, discipline, price, timeline. Inherits text colour. */
+.bs-chips { display: flex; flex-wrap: wrap; gap: var(--bs-chip-gap); }
+.bs-chip {
+  font-family: var(--bs-font-alternative);
+  font-size: .65rem;
+  font-weight: 400;
+  line-height: 1;
+  padding: 6px 10px;
+  border: var(--bs-hairline) solid currentColor;
+  border-radius: var(--bs-radius-pill);
+  white-space: nowrap;
+}
+
+/* Selectable choice pills: <label><input type="checkbox|radio"><span>…</span></label>.
+   Hover yellow, checked black with white text. */
+.bs-choices { display: flex; flex-wrap: wrap; gap: var(--bs-chip-gap); }
+.bs-choices label { position: relative; }
+.bs-choices input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.bs-choices span {
+  display: inline-block;
+  font-family: var(--bs-font-alternative);
+  font-size: .7rem;
+  line-height: 1;
+  padding: 10px 14px;
+  border: var(--bs-hairline) solid var(--bs-black);
+  border-radius: var(--bs-radius-pill);
+  cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
+}
+.bs-choices label:hover span { background: var(--bs-yellow); }
+.bs-choices input:checked + span { color: var(--bs-white); background: var(--bs-black); }
+.bs-choices input:focus-visible + span { outline: 2px solid var(--bs-black); outline-offset: 3px; }
+
+/* -- Form --------------------------------------------------------------- */
+.bs-form { display: grid; gap: var(--bs-form-gap); }
+.bs-form > .bs-btn { justify-self: start; }
+.bs-field-row { display: grid; gap: var(--bs-form-gap); }
+@media (min-width: 40em) { .bs-field-row { grid-template-columns: 1fr 1fr; gap: var(--bs-field-row-gap); } }
+
+/* <label class="bs-field"><span>Label</span><input></label>, or a <fieldset>
+   with a <legend>. Underline fields; a yellow bar sweeps in on focus. */
+.bs-field { display: block; min-width: 0; margin: 0; padding: 0; border: 0; }
+.bs-field > span, .bs-field > legend {
+  display: block;
+  padding: 0;
+  margin-bottom: .6rem;
+  font-family: var(--bs-font-alternative);
+  font-size: .65rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.bs-field em { font-style: normal; text-transform: none; opacity: .55; margin-left: .5em; }
+.bs-field input[type="text"], .bs-field input[type="email"], .bs-field textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: .35rem 0 .6rem;
+  font-family: var(--bs-font-stack);
+  font-size: 1.15rem;
+  color: var(--bs-black);
+  border: 0;
+  border-bottom: var(--bs-hairline) solid var(--bs-black);
+  border-radius: 0;
+  background: linear-gradient(var(--bs-yellow), var(--bs-yellow)) no-repeat 0 100% / 0% var(--bs-highlight-bar);
+  transition: background-size .3s ease-out;
+}
+.bs-field input::placeholder, .bs-field textarea::placeholder { color: var(--bs-ink-placeholder); }
+.bs-field input:focus, .bs-field textarea:focus { outline: none; background-size: 100% var(--bs-highlight-bar); }
+.bs-field textarea { resize: none; line-height: 1.5; }
+
+/* Status notice above a form: yellow stripe for success, black for errors. */
+.bs-notice {
+  padding: 1rem 1.25rem;
+  font-family: var(--bs-font-alternative);
+  font-size: .75rem;
+  line-height: 1.6;
+  background: var(--bs-white);
+  border-left: 6px solid var(--bs-yellow);
+}
+.bs-notice--error { border-left-color: var(--bs-black); }
+
+/* -- Layout patterns ---------------------------------------------------- */
+/* Two columns from 40em (1fr 2fr): heading left, content right. Used by
+   service rows and the résumé. */
+.bs-split { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 40em) { .bs-split { grid-template-columns: 1fr 2fr; gap: var(--bs-column-gap); } }
+
+/* A service row: 2px rule on top, heading + chips left, copy right. */
+.bs-service {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 0 3rem;
+  border-top: var(--bs-rule) solid var(--bs-black);
+}
+@media (min-width: 40em) { .bs-service { grid-template-columns: 1fr 2fr; gap: var(--bs-column-gap); } }
+.bs-service ul, .bs-list { margin: 1rem 0; padding-left: 1.25rem; }
+.bs-service li, .bs-list li { font-family: var(--bs-font-stack); font-size: .75rem; line-height: 2; }
+
+/* Portfolio grid: 5 columns; cards span 2, wide cards span 3. Pair one wide
+   and one narrow card per row. */
+.bs-work-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 1fr;
+  grid-row-gap: 75px;
+}
+@media (min-width: 40em) { .bs-work-grid { grid-gap: var(--bs-grid-gap); } }
+
+/* Project card: square-cornered media; on hover (40em+) a black overlay
+   fades in with white title, chips, description and a blush "visit" pill. */
+.bs-card { grid-column: 1 / -1; width: 100%; position: relative; }
+.bs-card img, .bs-card video { display: block; width: 100%; height: 300px; object-fit: cover; object-position: top; transition: .3s ease-in-out; }
+.bs-card__overlay { position: relative; display: flex; align-items: center; overflow: hidden; transition: .5s ease; }
+.bs-card__text { font-weight: 600; padding: 0 2%; }
+.bs-card__text p { line-height: 1.5; }
+.bs-card__title { font-size: 1.2rem; margin-bottom: .75rem; }
+.bs-card__text .bs-chips { margin-bottom: .75rem; }
+.bs-card__desc { margin-bottom: 1rem; }
+.bs-card__visit {
+  display: inline-block;
+  font-family: var(--bs-font-alternative);
+  font-size: .7rem;
+  padding: 8px 14px;
+  background-color: var(--bs-main-color);
+  color: var(--bs-black);
+  border-radius: var(--bs-radius-pill);
+}
+@media (min-width: 40em) {
+  .bs-card { overflow: hidden; height: 100%; grid-column: span 2; transition-duration: .5s; }
+  .bs-card--wide { grid-column: span 3; }
+  .bs-card img, .bs-card video { height: 350px; }
+  .bs-card__overlay {
+    position: absolute; inset: 0; z-index: 10000;
+    justify-content: center; text-align: center;
+    background-color: var(--bs-black); opacity: 0;
+  }
+  .bs-card__text { color: var(--bs-white); padding: 0 5%; }
+  .bs-card__text .bs-chips { justify-content: center; }
+  .bs-card:hover { transform: scale(1.1); transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36); }
+  .bs-card:hover .bs-card__overlay { opacity: .95; }
+  .bs-card:hover img, .bs-card:hover video { transform: scale(1.2); }
+}
+
+/* Side nav: Space Mono uppercase links on one line, rotated -90°, pinned
+   bottom-left. Mark the current page with .is-active. */
+.bs-nav {
+  z-index: 1000;
+  position: absolute;
+  left: 10%;
+  bottom: 50px;
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transform: rotate(-90deg);
+  transform-origin: left bottom;
+}
+@media (min-width: 40em) { .bs-nav { position: fixed; left: 3%; bottom: 100px; transform-origin: left center; } }
+.bs-nav a { position: relative; margin-right: 20px; font-size: .75em; font-family: var(--bs-font-alternative); }
+@media (min-width: 64em) { .bs-nav a { margin-right: 32px; font-size: .95rem; font-weight: 700; letter-spacing: .04em; } }
+.bs-nav a::before, .bs-nav a.is-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: var(--bs-rule);
+  background: var(--bs-black);
+}
+.bs-nav a::before { transform: scaleX(0); transform-origin: left center; transition: transform .3s ease-out; }
+.bs-nav a:hover::before { transform: scaleX(1); }
+
+/* Two-line footer: line left, name and year right, tiny 600 type. */
+.bs-footer { display: grid; grid-template-columns: 2fr 1fr; }
+.bs-footer p { font-size: .4rem; font-weight: 600; }
+.bs-footer p:last-of-type { text-align: right; }
+
+/* -- Motion ------------------------------------------------------------- */
+/* Fade and lift in on load: the site's scroll-reveal (24px, .7s ease-out). */
+.bs-fade-up { animation: bs-fade-up .7s ease-out both; }
+@keyframes bs-fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bs-fade-up { animation: none; }
+  .bs-hl, .bs-field input, .bs-field textarea, .bs-btn, .bs-card, .bs-nav a::before { transition: none; }
+}

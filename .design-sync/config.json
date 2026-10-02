@@ -1,0 +1,9 @@
+{
+  "projectId": "66ddb6fb-4178-48d9-8267-adb3818eb258",
+  "pkg": "brandonspell",
+  "globalName": "BrandonSpell",
+  "shape": "package",
+  "entry": "./design-system/index.js",
+  "cssEntry": "design-system/brandonspell.css",
+  "readmeHeader": ".design-sync/conventions.md"
+}

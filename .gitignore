@@ -3,3 +3,9 @@ node_modules/
 # local secrets for `wrangler pages dev` — never commit
 .dev.vars
 .DS_Store
+# Claude Design sync: staged converter, build output, machine state
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
