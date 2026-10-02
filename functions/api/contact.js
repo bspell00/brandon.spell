@@ -7,7 +7,8 @@
 //   GMAIL_APP_PASSWORD  a Google app password for that account — never commit it
 //   CONTACT_TO          optional: deliver somewhere other than GMAIL_USER
 //   TURNSTILE_SECRET_KEY  secret for the "brandonspell.com contact form" Turnstile
-//                         widget (Cloudflare dashboard → Turnstile)
+//                         widget (Cloudflare dashboard → Turnstile); while it's
+//                         unset, the Turnstile check is skipped
 //
 // Every outcome is a redirect back to contact.html with ?sent=1 or ?error=…
 // for the page to report.
@@ -89,13 +90,15 @@ export async function onRequestPost({ request, env }) {
     return back(request, 'error=invalid');
   }
 
+  // Until the secret is added in Cloudflare the check is skipped (the bot
+  // filters above still apply), so the form never stops working.
   if (!env.TURNSTILE_SECRET_KEY) {
-    console.error('contact: TURNSTILE_SECRET_KEY is not set');
-    return back(request, 'error=send');
-  }
-  const token = String(form.get('cf-turnstile-response') || '');
-  if (!token || !(await passesTurnstile(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP')))) {
-    return back(request, 'error=verify');
+    console.warn('contact: TURNSTILE_SECRET_KEY is not set, so the Turnstile check was skipped');
+  } else {
+    const token = String(form.get('cf-turnstile-response') || '');
+    if (!token || !(await passesTurnstile(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP')))) {
+      return back(request, 'error=verify');
+    }
   }
 
   if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) {
