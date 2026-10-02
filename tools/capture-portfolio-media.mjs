@@ -12,9 +12,9 @@ const PROJECTS = [
   // (freechapel.org's lazy-loaded social feed renders half-assembled mid-scroll)
   { key: 'freechapel', url: 'https://freechapel.org', video: true, stopBefore: 'Follow Us on Social Media' },
   { key: 'shiloh', url: 'https://www.shilohranchga.com', video: false },
-  { key: 'forward26', url: 'https://forwardconference.org', video: false },
+  { key: 'forward27', url: 'https://forwardconference.org', video: false },
   { key: 'ark', url: 'https://www.thearksalina.com', video: true },
-  { key: 'divine26', url: 'https://divineconference.org', video: true },
+  { key: 'divine27', url: 'https://divineconference.org', video: true },
   { key: 'fccollege', url: 'https://freechapelcollege.org', video: false },
 ];
 
@@ -74,7 +74,7 @@ async function scrollVideo(browser, p) {
   console.log(`video: img/${p.key}.mp4 (+poster)`);
 }
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ channel: 'chrome' }); // the installed Chrome
 for (const p of PROJECTS) {
   if (only.length && !only.includes(p.key)) continue;
   try {
