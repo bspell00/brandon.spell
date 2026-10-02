@@ -12,7 +12,8 @@ const PROJECTS = [
   // (freechapel.org's lazy-loaded social feed renders half-assembled mid-scroll)
   { key: 'freechapel', url: 'https://freechapel.org', video: true, stopBefore: 'Follow Us on Social Media' },
   { key: 'shiloh', url: 'https://www.shilohranchga.com', video: false },
-  { key: 'forward27', url: 'https://forwardconference.org', video: false },
+  // trimStart: seconds cut from the front (forwardconference.org opens on a black preloader)
+  { key: 'forward27', url: 'https://forwardconference.org', video: true, stopBefore: 'Speakers', trimStart: 1.5 },
   { key: 'ark', url: 'https://www.thearksalina.com', video: true },
   { key: 'divine27', url: 'https://divineconference.org', video: true },
   { key: 'fccollege', url: 'https://freechapelcollege.org', video: false },
@@ -66,7 +67,8 @@ async function scrollVideo(browser, p) {
   await ctx.close(); // flushes the webm
   const webm = readdirSync(dir).find(f => f.endsWith('.webm'));
   execSync(
-    `ffmpeg -y -i "${join(dir, webm)}" -an -vf "scale=1280:-2,fps=24" ` +
+    // crop: Chrome's recorder leaves a grey strip along the bottom of the frame
+    `ffmpeg -y ${p.trimStart ? `-ss ${p.trimStart} ` : ''}-i "${join(dir, webm)}" -an -vf "scale=1280:-2,crop=1280:720:0:0,fps=24" ` +
     `-c:v libx264 -crf 28 -preset medium -movflags +faststart img/${p.key}.mp4`,
     { stdio: 'inherit' }
   );
