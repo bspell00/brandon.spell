@@ -103,7 +103,12 @@ export async function onRequestPost({ request, env }) {
   } else {
     const token = String(form.get('cf-turnstile-response') || '');
     const failed = await turnstileError(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));
-    if (failed) return back(request, 'error=verify', { 'X-Turnstile-Error': failed });
+    // A problem on our side (wrong secret, Cloudflare unreachable) must not
+    // block real people: let it through and log it. The bot filters above
+    // still apply. Only a bad or missing visitor token is refused.
+    const ourFault = /invalid-input-secret|missing-input-secret|siteverify-unreachable|internal-error/.test(failed);
+    if (failed && ourFault) console.error('contact: Turnstile misconfigured (' + failed + '), so the check was skipped');
+    else if (failed) return back(request, 'error=verify', { 'X-Turnstile-Error': failed });
   }
 
   if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) {
