@@ -38,24 +38,30 @@ const MIN_FILL_MS = 3000;
 // and digits, e.g. NATREGTEGH2738925NEYRTHYT.
 const JUNK_TOKEN = /^[A-Z0-9]{12,}$/;
 
-async function passesTurnstile(token, secret, ip) {
+// Returns '' when the token passes, else Cloudflare's error codes (or a
+// short reason), which go back in the X-Turnstile-Error response header.
+async function turnstileError(token, secret, ip) {
+  if (!token) return 'missing-input-response';
   const body = new FormData();
-  body.append('secret', secret);
+  body.append('secret', secret.trim()); // a pasted secret often carries a stray newline
   body.append('response', token);
   if (ip) body.append('remoteip', ip);
   try {
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body });
     const outcome = await res.json();
-    if (!outcome.success) console.error('contact: turnstile rejected —', (outcome['error-codes'] || []).join(', '));
-    return outcome.success === true;
+    if (outcome.success === true) return '';
+    const codes = (outcome['error-codes'] || []).join(',') || 'unknown';
+    console.error('contact: turnstile rejected —', codes);
+    return codes;
   } catch (err) {
     console.error('contact: turnstile check failed —', err && err.message);
-    return false;
+    return 'siteverify-unreachable';
   }
 }
 
-function back(request, query) {
-  return Response.redirect(new URL('/contact?' + query + '#enquiry', request.url).toString(), 303);
+function back(request, query, headers = {}) {
+  const location = new URL('/contact?' + query + '#enquiry', request.url).toString();
+  return new Response(null, { status: 303, headers: { Location: location, ...headers } });
 }
 
 // Single-line fields end up in mail headers (subject, reply-to), so strip
@@ -96,9 +102,8 @@ export async function onRequestPost({ request, env }) {
     console.warn('contact: TURNSTILE_SECRET_KEY is not set, so the Turnstile check was skipped');
   } else {
     const token = String(form.get('cf-turnstile-response') || '');
-    if (!token || !(await passesTurnstile(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP')))) {
-      return back(request, 'error=verify');
-    }
+    const failed = await turnstileError(token, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP'));
+    if (failed) return back(request, 'error=verify', { 'X-Turnstile-Error': failed });
   }
 
   if (!env.GMAIL_USER || !env.GMAIL_APP_PASSWORD) {
