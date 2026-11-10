@@ -26,15 +26,18 @@ There is no lint or test command.
 
 ## Architecture
 
-**Five self-contained pages**, each linking the same compiled `css/custom.css` and repeating the same `#nav` block:
-- `index.html` — landing header + `#work` portfolio grid (the project cards). Loads jQuery from CDN for one feature: smooth-scroll anchor jumps to `#work`.
-- `services.html` — service packages with starting prices. The site stays a portfolio first: selling lives here and on `contact.html`, with only quiet links from the homepage.
-- `about.html`, `resume.html`, `contact.html` — single-section pages.
+**Design: "Orange Technical"** (Nov 2026 redesign, from the Claude Design canvas "Portfolio Redesign — Orange Technical"). Light grey paper, off-white tiles with a clipped top-right corner, orange `#ff4d00` as the one accent, Geist / Martian Mono / Geist Mono from Google Fonts.
 
-**Styling is one stylesheet scoped by page ID.** All CSS lives in `sass/custom.scss`. Each page wraps its content in a div with a distinguishing id (`#work`, `#services`, `#about`, `#contact`, `#resume`), and the SCSS keys page-specific rules off that id. So to change a single page's layout, find its `#id { … }` block in `custom.scss` rather than looking for a separate file.
+**Five self-contained pages** (`index`, `services`, `about`, `resume`, `contact`, plus `404.html`), each repeating the same `header.ot-hud.site-hud` nav (current page gets `aria-current="page"`) and `footer.site-foot`, inside `.site > .sheet > main#main`. Content is laid out as `.ot-tile` panels in `.tiles` flex rows; `.ot-tile.signal` is the orange panel, `.ot-tile.dark` the black one.
 
-**Responsive design** is driven by SCSS mixins defined at the top of `custom.scss` (`phone-only`, `tablet-up`, `desktop-up`, etc.) wrapping `@media` queries. Brand variables (`$main-color`, fonts, breakpoints) are also defined there. Always edit the `.scss` and recompile — never hand-edit `css/custom.css`.
+**Styling** lives in `sass/custom.scss`, plain CSS in three layers, in this order (later layers override earlier ones, so keep the order):
+1. Orange Technical components (`.ot-*` classes: tiles, type scale, buttons, pills, tables, ladder bars).
+2. Site layer: design tokens as CSS custom properties on `:root` (`--orange`, `--ink`, `--paper`, `--panel`, …) and the portfolio classes (`.project`, `.hl`, `.spec`, `.field`, `.choices`, `.send`).
+3. Live-site additions: project videos, `.reveal` scroll-in, form status, phone tweaks.
+Always edit the `.scss` and recompile — never hand-edit `css/custom.css`.
 
-**Portfolio cards** (`index.html`) follow a fixed pattern: a `.project` div (optionally `.span-3` for a wide card) containing an `<img>`/`<video>` plus a `.overlay > .text` block that fades in on hover. To add a project, copy an existing `.project` block and drop its media into `img/`.
+**Portfolio cards** (`index.html`): an `a.ot-tile.project` with a `<video>` (with `poster`) or `<img>`, then `.project-body` holding `.project-meta` (year + `.ot-pill.muted` category), the title, a `.why` sentence and a `visit site ↗` button. Wide cards use `flex: 2 1 560px`, narrow ones `flex: 1 1 320px`; pair one of each per `.tiles` row.
 
-Fonts (Montserrat, Space Mono) load from the Google Fonts CDN in each page `<head>`.
+`js/main.js` adds `.is-visible` to `.reveal` elements as they scroll in (its typewriter and cursor parts are dormant: no page uses `.typewriter` or `.cursor` any more).
+
+**Claude Design sync:** `.design-sync/` and `design-system/brandonspell.css` still describe the old blush/Montserrat look and need re-syncing to Orange Technical.
