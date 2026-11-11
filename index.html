@@ -25,9 +25,11 @@
   <meta name="twitter:description" content="Graphic and web designer with 20+ years of experience, designing and building websites for churches, ministries and conferences.">
   <meta name="twitter:image" content="https://www.brandonspell.com/img/og-image.jpg">
 
-  <link rel="stylesheet" href="css/custom.css?v=4">
+  <link rel="stylesheet" href="css/custom.css?v=6">
   <link rel="icon" href="img/favicon.ico" type="image/ico">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600|Space+Mono:400,700" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Martian+Mono:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
   <script type="application/ld+json">
   {
@@ -53,173 +55,147 @@
     ]
   }
   </script>
+  <meta name="theme-color" content="#e6e7e8">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="site" data-ot="light" data-page="home">
+<div class="sheet">
 
-  <div class="cursor" aria-hidden="true"><span class="cursor-label">View&nbsp;&rarr;</span></div>
 
-  <div id="nav">
-    <a href="#work">my work</a>
-    <a href="services.html">services</a>
-    <a href="about.html">about</a> 
-    <a href="resume.html">resumé</a>
-    <a href="contact.html">contact me</a>
-  </div>
-
-  <a class="start-project" href="contact.html">Start a project &rarr;</a>
-
-  <header class="about-header">
-    <div class="container">
-      <h1 class="typewriter">My Name Is Brandon. I'm a <span class="hl">graphic</span> and <span class="hl">web designer</span> who dabbles in just about <span class="hl">everything</span>.</h1>
-      <p class="hero-sub">I design and build websites for churches, ministries and conferences. <a href="services.html">See services &rarr;</a></p>
-    </div>
+  <header class="ot-hud site-hud">
+    <div class="site-id"><a class="site-name" href="index.html">Brandon Spell</a><span>Graphic &amp; Web Designer</span></div>
+    <nav class="site-nav">
+      <a href="index.html" aria-current="page">My work</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resumé</a>
+      <a href="contact.html">Contact me</a>
+    </nav>
   </header>
 
-  <div id="work">
-   <div class="container">
+  <main id="main">
 
-    <div class="project span-3 reveal">
-      <a href="https://forwardconference.org" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="img/forward27-poster.jpg" src="img/forward27.mp4"></video>
-        <div class="overlay">
-          <div class="text">
-            <p class="title">Forward Conference</p>
-            <div class="chips"><span class="chip">2027</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">The 2027 site for Atlanta's annual youth conference, hosting over 13,000 students &mdash; designed and built fresh every year since 2015.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
+  <div class="tiles reveal hero-row">
+    <section class="ot-tile hero" style="flex: 999 1 560px; display: flex; flex-direction: column; gap: 28px">
+      <h1 class="ot-h2 ot-xl hero-title">My Name Is Brandon. I'm a <span class="hl">graphic</span> and <span class="hl">web designer</span> who dabbles in just about <span class="hl">everything</span>.</h1>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: auto">
+        <p class="ot-headline hero-sub">I design and build websites for churches, ministries and conferences.</p>
+        <a class="ot-btn" href="services.html">See services →</a>
+      </div>
+    </section>
+
+    <aside class="ot-tile signal" style="flex: 1 1 300px; align-self: stretch; display: flex; flex-direction: column; justify-content: flex-end">
+      <span class="ot-code">CONTACT ME</span>
+      <h2 class="ot-h2 ot-lg">I'm easy to get in touch with!</h2>
+      <p style="font-size: 15px; line-height: 1.4; margin-top: 16px">Tell me a little about your project and I'll get back to you.</p>
+      <a class="ot-btn primary" href="contact.html" style="margin-top: 14px">Start a project →</a>
+    </aside>
+  </div>
+
+  <section id="work" class="ot-tile">
+    <div class="ot-tile-head">
+      <h2 class="ot-h2 ot-lg">My work</h2>
     </div>
+  </section>
 
-    <div class="project reveal">
-      <a href="https://www.shilohranchga.com" target="_blank" rel="noopener">
-        <img class="cover" src="img/shiloh.jpg" alt="Shiloh Ranch website">
-        <div class="overlay">
-          <div class="text">
-            <p class="title">Shiloh Ranch</p>
-            <div class="chips"><span class="chip">2026</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">An invitation-only retreat portal for a private ministry ranch &mdash; custom RSVP system, admin dashboard, and event management.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
+  <div class="tiles reveal">
+    <a id="forward" class="ot-tile project" href="https://forwardconference.org" target="_blank" rel="noopener" style="flex: 2 1 560px">
+      <video autoplay muted loop playsinline preload="metadata" poster="img/forward27-poster.jpg" src="img/forward27.mp4" aria-label="Forward Conference"></video>
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2027</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-lg">Forward Conference</h3>
+        <p class="why">The 2027 site for Atlanta's annual youth conference, hosting over 13,000 students — designed and built fresh every year since 2015.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+    <a id="shiloh" class="ot-tile project" href="https://www.shilohranchga.com" target="_blank" rel="noopener" style="flex: 1 1 320px">
+      <img src="img/shiloh.jpg" alt="Shiloh Ranch website" loading="lazy" style="height: clamp(220px, 30vw, 420px)">
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2026</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-md">Shiloh Ranch</h3>
+        <p class="why">An invitation-only retreat portal for a private ministry ranch — custom RSVP system, admin dashboard, and event management.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+  </div>
 
-    <div class="project reveal">
-      <a href="https://freechapelcollege.org" target="_blank" rel="noopener">
-        <img class="cover" src="img/fccollege.jpg" alt="Free Chapel College website">
-        <div class="overlay">
-          <div class="text">
-            <p class="title">Free Chapel College</p>
-            <div class="chips"><span class="chip">2024</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">A recruiting and information site for Free Chapel's ministry college.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
+  <div class="tiles reveal">
+    <a id="fccollege" class="ot-tile project" href="https://freechapelcollege.org" target="_blank" rel="noopener" style="flex: 1 1 320px">
+      <img src="img/fccollege.jpg" alt="Free Chapel College website" loading="lazy" style="height: clamp(220px, 30vw, 420px)">
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2024</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-md">Free Chapel College</h3>
+        <p class="why">A recruiting and information site for Free Chapel's ministry college.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+    <a id="freechapel" class="ot-tile project" href="https://freechapel.org" target="_blank" rel="noopener" style="flex: 2 1 560px">
+      <video autoplay muted loop playsinline preload="metadata" poster="img/freechapel-poster.jpg" src="img/freechapel.mp4" aria-label="Free Chapel"></video>
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2017–present</span><span class="ot-pill muted">UX/UI — Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-lg">Free Chapel</h3>
+        <p class="why">Free Chapel's entire web presence — the public site and the custom platform behind it — designed, built, and continuously evolved since 2017.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+  </div>
 
-    <div class="project span-3 reveal">
-      <a href="https://freechapel.org" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="img/freechapel-poster.jpg" src="img/freechapel.mp4"></video>
-        <div class="overlay">
-          <div class="text">
-            <p class="title">Free Chapel</p>
-            <div class="chips"><span class="chip">2017&ndash;present</span><span class="chip">UX/UI &mdash; Design &amp; Development</span></div>
-            <p class="desc">Free Chapel's entire web presence &mdash; the public site and the custom platform behind it &mdash; designed, built, and continuously evolved since 2017.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
+  <div class="tiles reveal">
+    <a id="ark" class="ot-tile project" href="https://www.thearksalina.com" target="_blank" rel="noopener" style="flex: 2 1 560px">
+      <video autoplay muted loop playsinline preload="metadata" poster="img/ark-poster.jpg" src="img/ark.mp4" aria-label="The Ark Church"></video>
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2025</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-lg">The Ark Church</h3>
+        <p class="why">A complete website for The Ark Church in Salina, KS — CMS-driven content, live streaming, and social integration.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+    <a id="shortprayers" class="ot-tile project" href="https://thepowerofshortprayers.com" target="_blank" rel="noopener" style="flex: 1 1 320px">
+      <video autoplay muted loop playsinline preload="metadata" poster="img/shortprayers-poster.jpg" src="img/shortprayers.mp4" aria-label="The Power of Short Prayers"></video>
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2025</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-md">The Power of Short Prayers</h3>
+        <p class="why">The official site for The Power of Short Prayers by New York Times Best Selling Author Jentezen Franklin.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+  </div>
 
-    <div class="project span-3 reveal">
-      <a href="https://www.thearksalina.com" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="img/ark-poster.jpg" src="img/ark.mp4"></video>
-        <div class="overlay">
-          <div class="text">
-            <p class="title">The Ark Church</p>
-            <div class="chips"><span class="chip">2025</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">A complete website for The Ark Church in Salina, KS &mdash; CMS-driven content, live streaming, and social integration.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="project reveal">
-      <a href="https://thepowerofshortprayers.com" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="img/shortprayers-poster.jpg" src="img/shortprayers.mp4"></video>
-        <div class="overlay">
-          <div class="text">
-            <p class="title">The Power of Short Prayers</p>
-            <div class="chips"><span class="chip">2025</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">The official site for <em>The Power of Short Prayers</em> by New York Times Best Selling Author Jentezen Franklin.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="project span-3 reveal">
-      <a href="https://divineconference.org" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="img/divine27-poster.jpg" src="img/divine27.mp4"></video>
-        <div class="overlay">
-          <div class="text">
-            <p class="title">DIVINE Conference</p>
-            <div class="chips"><span class="chip">2027</span><span class="chip">Design &amp; Development</span></div>
-            <p class="desc">The 2027 site for Free Chapel's annual women's conference &mdash; the latest in a yearly run since 2015.</p>
-            <span class="visit">visit site &nearr;</span>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="project reveal">
-      <div>
-        <img class="cover" src="img/balram-logo.jpg" alt="Devin Balram Photography logo">
-        <div class="overlay">
-          <div class="text">
-            <p class="title">Devin Balram Photography</p>
-            <div class="chips"><span class="chip">2017</span><span class="chip">Brand &amp; Logo Design</span></div>
-            <p class="desc">A hand-crafted identity for photographer Devin Balram &mdash; a vintage camera nested inside an Edison bulb.</p>
-          </div>
-        </div>
+  <div class="tiles reveal">
+    <a id="divine" class="ot-tile project" href="https://divineconference.org" target="_blank" rel="noopener" style="flex: 2 1 560px">
+      <video autoplay muted loop playsinline preload="metadata" poster="img/divine27-poster.jpg" src="img/divine27.mp4" aria-label="DIVINE Conference"></video>
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2027</span><span class="ot-pill muted">Design &amp; Development</span></div>
+        <h3 class="ot-h2 ot-lg">DIVINE Conference</h3>
+        <p class="why">The 2027 site for Free Chapel's annual women's conference — the latest in a yearly run since 2015.</p>
+        <span class="ot-btn" style="align-self: flex-start; margin-top: auto">visit site ↗</span>
+      </div>
+    </a>
+    <div id="balram" class="ot-tile project" style="flex: 1 1 320px">
+      <img src="img/balram-logo.jpg" alt="Devin Balram Photography logo" loading="lazy" style="height: clamp(220px, 30vw, 420px)">
+      <div class="project-body">
+        <div class="project-meta"><span class="ot-code">2017</span><span class="ot-pill muted">Brand &amp; Logo Design</span></div>
+        <h3 class="ot-h2 ot-md">Devin Balram Photography</h3>
+        <p class="why">A hand-crafted identity for photographer Devin Balram — a vintage camera nested inside an Edison bulb.</p>
       </div>
     </div>
-
-   </div>
   </div>
 
-  <p class="work-cta reveal">Need something like this? <a href="services.html">See what I can build for you &rarr;</a></p>
+  <section class="ot-tile reveal" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px">
+    <p class="ot-h3">Need something like this?</p>
+    <a class="ot-btn" href="services.html" style="margin-right: 16px">See what I can build for you →</a>
+  </section>
 
-<footer>
-  <div class="container">
-    <p>I have a passion for patterns and a love for lines.</p>
-    <p>Brandon Spell  |  2026</p>
-  </div>
-</footer>
+  </main>
 
+  <footer class="site-foot">
+    <span>I have a passion for patterns and a love for lines.</span>
+    <span>Brandon Spell | 2026</span>
+  </footer>
+</div>
+</div>
 
-
-
-<script src="js/main.js?v=3"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
-crossorigin="anonymous"></script>
-<script>
-  $('a[href*="#"]').on('click', function (e) {
-    e.preventDefault();
-
-    $('html, body').animate({
-      scrollTop: $($(this).attr('href')).offset().top
-    }, 500, 'easeOutCubic');
-  });
-</script>
-
-
+<script src="js/main.js?v=4"></script>
 </body>
 </html>
