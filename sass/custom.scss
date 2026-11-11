@@ -223,6 +223,12 @@ h1, h2, h3, p, dl, dd { margin: 0; }
 .site-nav a.ot-btn.primary { color: var(--panel); }
 .site-nav a.ot-btn.primary:hover { color: var(--on-orange); border-color: var(--orange); }
 
+/* Homepage hero: breaks out of the sheet to the window's 18px gutter (up to 1800px) and the headline scales with it */
+.hero-row { margin-inline: min(0px, max(calc(50% - 900px), calc(50% - 50vw + var(--sheet)))); }
+.hero { min-height: clamp(520px, 66vh, 700px); padding: 36px 36px 32px; }
+.hero-title { font-size: clamp(52px, 6.8vw, 132px); line-height: .9; }
+.hero-sub { font-size: 18px; }
+
 /* Controls sized for a public site: same type, 44px targets */
 .site .ot-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 14px; }
 .link { color: inherit; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 1px; text-underline-offset: 3px; }
@@ -323,6 +329,8 @@ a.project:focus-visible { outline-offset: -4px; }
   .site-nav { flex-wrap: wrap; gap: 0 4px; }
   .site-nav a.ot-btn { margin-top: 6px; }
   .ot-xl { font-size: clamp(34px, 9vw, 44px); }
+  .hero { min-height: 0; padding: 22px; }
+  .hero-title { font-size: clamp(40px, 11.5vw, 56px); }
   .ot-tile { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
 }
 
